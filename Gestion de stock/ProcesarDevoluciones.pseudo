@@ -1,0 +1,71 @@
+Subalgoritmo procesarDevoluciones (E: FiccionStock, TecnicoStock, InfantilStock, RefStock, Fecha, diasDePrestamo: entero; S: FiccionStock, TecnicoStock, InfantilStock: entero)
+DiaDeHoy, (entero);
+DiasAtraso, (entero);
+Codigo,ocupacion, (cadena);
+basura, (entero);
+multa: (entero);
+
+//Variable que debería guardarse en el algoritmo principal
+//FiccionStock, TecnicoStock, InfantilStock
+
+INICIO
+//Asegurar dato
+ingresar(DiaDeHoy)
+//Arreglar esto, creo que no debería ser así
+lapsoDeDias <- abs(DiaDeHoy - Fecha)
+multa <- 0
+
+Si (Codigo = "FIC") entonces
+//Solo me interesa agregar el stock en FIC, puedo no capturar la información que no necesito? por ahora utilizo una variable llamada basura
+    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"FIC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+    Si (lapsoDeDias > 15 y lapsoDeDias <= 18) entonces
+    multa <- multa + 500
+    Si (lapsoDeDias > 18 y lapsoDeDias <= 25) entonces
+    multa <- multa + 800
+    Si (lapsoDeDias > 25) entonces
+    multa <- multa + 1200
+    FinSi
+
+    Mostrar("Libro devuelto, multa:", multa )
+FinSi
+
+Si (Codigo = "TEC") entonces
+    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"TEC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+    Si (lapsoDeDias > 7 y lapsoDeDias <= 10) entonces
+    multa <- multa + 500
+    Si (lapsoDeDias > 10 y lapsoDeDias <= 17) entonces
+    multa <- multa + 800
+    Si (lapsoDeDias > 17) entonces
+    multa <- multa + 1200
+    FinSi
+
+    Mostrar("Libro devuelto, multa:", multa )
+    
+FinSi
+
+Si (Codigo = "INF") entonces
+    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"INF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+    Si (lapsoDeDias > 21 y lapsoDeDias <= 24) entonces
+    multa <- multa + 500
+    Si (lapsoDeDias > 24 y lapsoDeDias <= 31) entonces
+    multa <- multa + 800
+    Si (lapsoDeDias > 31) entonces
+    multa <- multa + 1200
+    FinSi
+    Mostrar("Libro devuelto, multa:", multa )
+FinSi
+
+
+Si (Codigo = "REF") entonces
+    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+    Si (lapsoDeDias > 0 y lapsoDeDias <= 3) entonces
+    multa <- multa + 500
+    Si (lapsoDeDias > 3 y lapsoDeDias <= 7) entonces
+    multa <- multa + 800
+    Si (lapsoDeDias > 7) entonces
+    multa <- multa + 1200
+    FinSi
+    Mostrar("Libro devuelto, multa:", multa )
+FinSi
+
+FIN
