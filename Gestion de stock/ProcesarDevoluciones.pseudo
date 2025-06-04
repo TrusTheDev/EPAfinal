@@ -2,7 +2,6 @@ Subalgoritmo procesarDevoluciones (E: FiccionStock, TecnicoStock, InfantilStock,
 DiaDeHoy, (entero);
 DiasAtraso, (entero);
 Codigo,ocupacion, (cadena);
-basura, (entero);
 multa: (entero);
 
 //Variable que debería guardarse en el algoritmo principal

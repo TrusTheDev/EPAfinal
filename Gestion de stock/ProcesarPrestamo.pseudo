@@ -1,8 +1,6 @@
-ALGORITMO ProcesarPrestamo
+subalgoritmo ProcesarPrestamo (E: codigodesocio,isbnLibro,fecha: cadena; dia, mes, anio: entero; S: codigodesocio,isbnLibro,fecha: cadena; dia, mes, anio: entero )
 VAR
-codigoSocio, isbnLibro, codigoLibro, fecha: cadena
 esValido, esNumerico: logico
-dia, mes, anio: entero
 INICIO
 // Validar el código de socio //
 Repetir

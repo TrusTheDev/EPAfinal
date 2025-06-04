@@ -1,7 +1,4 @@
-Algoritmo NuevoSocioBiblioteca
-Var
-    nombre, apellido, codigodesocio, ocupacion, correo:cadena
-    edad:entero
+Subalgoritmo NuevoSocioBiblioteca (E: nombre, apellido, codigodesocio, ocupacion, correo: cadena,edad: entero; S: nombre, apellido, codigodesocio, ocupacion, correo, edad)
 Inicio
     mostrar("Ingrese nombre del socio: ")
     ingresar(nombre)

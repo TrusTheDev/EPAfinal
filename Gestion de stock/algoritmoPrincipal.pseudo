@@ -1,0 +1,31 @@
+ALGORITMO algoritmoPrincipal;
+VAR
+//Lógica para agregar un socio
+nombre, apellido, codigodesocio, ocupacion, correo: cadena;
+edad: entero;
+
+//Lógica para Procesar prestamo
+isbnLibro, codigoLibro, fecha: cadena;
+//debería sacar la hora en formato 24 horas tambíen (creo)
+dia, mes, anio: entero;
+
+//utilidades del algoritmo principal.
+opcion: entero;
+
+//Lógica para procesarDevoluciones
+//En proceso, habria que ver como sacar el lapso de dias y agregar el acumulador de multas.
+FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
+
+INICIO
+Mostrar("Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros")
+
+//validar
+ingresar(opcion)
+mientras (opcion <> 0) hacer
+    Según (opcion) hacer
+    1: NuevoSocioBiblioteca(/*entrada*/nombre, apellido, codigodesocio, ocupacion, correo,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo);
+    2: ProcesarPrestamo(/*entrada*/codigodesocio, isbnLibro, fecha,dia,mes,anio,/*salida*/codigodesocio, isbnLibro, fecha, dia, mes, anio);
+    3: ProcesarDevoluciones();
+    Fin Según
+fin mientras
+FIN
