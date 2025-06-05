@@ -1,4 +1,4 @@
-Subalgoritmo NuevoSocioBiblioteca (E: nombre, apellido, codigodesocio, ocupacion, correo: cadena,edad: entero; S: nombre, apellido, codigodesocio, ocupacion, correo, edad)
+Subalgoritmo NuevoSocioBiblioteca (S: nombre, apellido, codigodesocio, ocupacion, correo, edad)
 Inicio
     mostrar("Ingrese nombre del socio: ")
     ingresar(nombre)
@@ -27,47 +27,51 @@ Inicio
     mostrar("Codigo de Socio: ", codigodesocio)
 Fin
 
-Subalgoritmo CodigoDeSocio(E:nombre,apellido:cadena;S:codigodesocio:cadena)   
-Const
-    ascii = (65.. 90, 97.. 122)
-    asciimayusculas = (65.. 90)
-    asciiminusculas = (97.. 122)
+Subalgoritmo CodigoDeSocio(E:nombre,apellido:cadena;S:codigodesocio:cadena, contsocio: entero)   
 Var
     nombre, apellido, codnom, codapell, codigodesocio: cadena
-    i, secuencial: entero
-    let1, let2, let3: caracter
+    i, cantsocios, secuencial: entero
 Inicio
-    secuencial <-- 0000
-    codnom <-- " "
-    codapell <-- " " 
-    let1 <-- " "
-    let2 <-- " "    
-    let3 <-- " "
-    mostrar("ingrese nombre: ")
-    ingresar(nombre)
-    si nombre <> ascii entonces 
-        mostrar("Error: el nombre ingresados es invalido")
-    sino 
-       si (nombre = ascii) entonces
-            let1 <-- cardinal(ordinal(nombre[i=1]) - 32) 
-            let2 <-- cardinal(ordinal(nombre[i=2]) - 32)
-            let3 <-- cardinal(ordinal(nombre[i=3]) - 32)
-            codnom <-- concatenar(let1, let2, let3)
-        fin si
-    fin si
-     mostrar("ingrese apellido: ")
-    ingresar(apellido)
-    si apellido <> ascii entonces 
-        mostrar("Error: el apellido ingresados es invalido")
-    sino 
-       si (apellido = ascii) entonces
-            let1 <-- cardinal(ordinal(apellido[i=1]) - 32) 
-            let2 <-- cardinal(ordinal(apellido[i=2]) - 32)
-            let3 <-- cardinal(ordinal(apellido[i=3]) - 32)
-            codnom <-- concatenar(let1, let2, let3)
-        fin si
-    fin si
-    secuencial <-- secuencial + 1
+    codnom <-- ""
+    codapell <-- ""
+    tope <-- long(nombre)
+// genera el codigo del nombre
+    desde (i <-- 1) hasta (tope) hacer
+        letra <-- nombre[i]
+        segun ord(letra) hacer
+            65.. 90: mostrar("nombre verificado")
+            97.. 122: mostrar("ingrese su nombre en mayusculas")
+        fin segun
+    fin desde
+    i <-- 1
+    tope <-- 3
+    desde i hasta tope hacer
+        codnom <-- concatenar(codnom,nombre[i])
+    fin desde
+// gnenera el codigo del apellido
+    tope <-- long(apellido)
+    desde (i <-- 1) hasta (tope) hacer
+        letra <-- nombre[i]
+        segun ord(letra) hacer
+            65.. 90: mostrar("apellido verificado")
+            97.. 122: mostrar("ingrese su apellido en mayusculas")
+        fin segun
+    fin desde
+    i <-- 1
+    tope <-- 3
+    desde i hasta tope hacer
+        codnom <-- concatenar(codnom,apellido[i])
+    fin desde
+// genera un munero secuencial del socio
+    contsocio <-- contsocio + 1
+    secuencial <-- enteroacadena(contsocio)
+    segun (secuencial) hacer
+        0.. 9: secuencial <-- concatenar("000", secuencial)
+        10.. 99: secuencial <-- concatenar("00", secuencial)
+        100.. 999: secuencial <-- concatenar("0", secuencial)
+        1000.. 9999: secuencial <-- secuencial
+    fin segun     
+// genero el codigo del socio
     codigodesocio <-- concatenar(codnom,car(45), codapell,car(45),secuencial)
     mostrar("El codigo del socio es: ",codigodesocio)
 Fin
@@ -80,7 +84,7 @@ Inicio
     cantidaddearroba <-- 0
     arroba <-- 0
     punto-- 0 
-    desde [i=1] hasta [i=long(correo)] hacer
+    desde [i <-- 1] hasta [i <-- long(correo)] hacer
         si (correo[i] = "@") entonces
             cantidaddearroba < cantidaddearroba + 1
             punto <-- i + 1
