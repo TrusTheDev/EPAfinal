@@ -1,4 +1,4 @@
-Subalgoritmo procesarDevoluciones (E: FiccionStock, TecnicoStock, InfantilStock, RefStock, Fecha, diasDePrestamo: entero; S: FiccionStock, TecnicoStock, InfantilStock: entero)
+Subalgoritmo procesarDevoluciones (E: acumMultas,FiccionStock, TecnicoStock, InfantilStock, RefStock, Fecha, diasDePrestamo: entero; S: acumMultas, FiccionStock, TecnicoStock, InfantilStock: entero)
 DiaDeHoy, (entero);
 DiasAtraso, (entero);
 Codigo,ocupacion, (cadena);
@@ -31,10 +31,13 @@ FinSi
 Si (Codigo = "TEC") entonces
     Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"TEC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 7 y lapsoDeDias <= 10) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 500
     Si (lapsoDeDias > 10 y lapsoDeDias <= 17) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 800
     Si (lapsoDeDias > 17) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
 
@@ -45,10 +48,13 @@ FinSi
 Si (Codigo = "INF") entonces
     Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"INF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 21 y lapsoDeDias <= 24) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 500
     Si (lapsoDeDias > 24 y lapsoDeDias <= 31) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 800
     Si (lapsoDeDias > 31) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
     Mostrar("Libro devuelto, multa:", multa )
@@ -58,10 +64,13 @@ FinSi
 Si (Codigo = "REF") entonces
     Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 0 y lapsoDeDias <= 3) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 500
     Si (lapsoDeDias > 3 y lapsoDeDias <= 7) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 800
     Si (lapsoDeDias > 7) entonces
+    acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
     Mostrar("Libro devuelto, multa:", multa )
