@@ -1,4 +1,4 @@
-Subalgoritmo NuevoSocioBiblioteca (S: nombre, apellido, codigodesocio, ocupacion, correo, edad)
+Subalgoritmo NuevoSocioBiblioteca (E: contsocio, S: nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio)
 Inicio
     mostrar("Ingrese nombre del socio: ")
     ingresar(nombre)
@@ -12,7 +12,7 @@ Inicio
     ingresar(correo)
     
     // Llamada al subalgoritmo para generar el codigodesocio
-    CodigoDeSocio(nombre, apellido, codigodesocio)
+    CodigoDeSocio(nombre, apellido, codigodesocio, contsocio)
     
     // llamado al subalgoritmo para verificacion de correo
     VerificacionDeCorreo(correo, verificaion)

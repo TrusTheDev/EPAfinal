@@ -1,31 +1,35 @@
 ALGORITMO algoritmoPrincipal;
 VAR
+
 //Lógica para agregar un socio
 nombre, apellido, codigodesocio, ocupacion, correo: cadena;
-edad: entero;
+edad, contsocio: entero;
 
 //Lógica para Procesar prestamo
 isbnLibro, codigoLibro, fecha: cadena;
-//debería sacar la hora en formato 24 horas tambíen (creo)
-dia, mes, anio: entero;
+dia, mes, anio, acumu_pres: entero;
 
 //utilidades del algoritmo principal.
-opcion: entero;
+opcion, acumMultas: entero;
 
 //Lógica para procesarDevoluciones
 //En proceso, habria que ver como sacar el lapso de dias y agregar el acumulador de multas.
 FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
 INICIO
-Mostrar("Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros")
+opcion <-- -1
+TecnicoStock <-- 3
+FiccionStock <-- 3
+InfantilStock <-- 3
+RefStock <-- 3
 
-//validar
-ingresar(opcion)
 mientras (opcion <> 0) hacer
+    Mostrar("Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros")
+    Ingresar(opcion)
     Según (opcion) hacer
-    1: NuevoSocioBiblioteca(/*entrada*/nombre, apellido, codigodesocio, ocupacion, correo,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo);
-    2: ProcesarPrestamo(/*entrada*/codigodesocio, isbnLibro, fecha,dia,mes,anio,/*salida*/codigodesocio, isbnLibro, fecha, dia, mes, anio);
-    3: ProcesarDevoluciones();
+        1: NuevoSocioBiblioteca(/*entrada*/contsocio,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio);
+        2: ProcesarPrestamo(/*entrada*/codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, /*salida*/codigodesocio,isbnLibro,fecha, dia, mes, anio, FiccionStock, TecnicoStock, InfantilStock, RefStock);
+        3: ProcesarDevoluciones(/*entrada*/ acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, fecha, diasDePrestamo, /*salida*/acumMultas, FiccionStock, TecnicoStock, InfantilStock);
     Fin Según
 fin mientras
 FIN
