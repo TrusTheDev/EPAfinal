@@ -1,0 +1,64 @@
+
+ Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion)
+  
+VAR 
+  digitos: cadena 
+
+Inicio
+  digitos <-- "    "
+  Mostrar (codigodesocio, nombre, apellido, fecha)
+  Mostrar ("Ingrese un numero de 4 digitos")
+
+//Puede que este mal. Arreglar
+
+//Contador de i para que 
+Desde i <-- 1 hasta i = 5 hacer
+
+    Repetir
+        ingresar (digitos[i])
+    hasta
+        (enteroAcadena(digitos[i]) >= 0 y <= 9)
+
+    i <-- i+1
+
+    Repetir
+        ingresar (digitos[i])
+    hasta
+        (enteroAcadena(digitos[i]) >= 0 y <= 9)
+
+    i <-- i+1
+
+    Repetir
+        ingresar (digitos[i])
+    hasta
+        (enteroAcadena(digitos[i]) >= 0 y <= 9)
+
+    i <-- i+1
+
+    Repetir
+        ingresar (digitos[i])
+    hasta
+        (enteroAcadena(digitos[i]) >= 0 y <= 9)
+
+    i <-- i+1
+
+    concatenar (digitos, digitos) //No recuerdo si esto debe seguir estando, no lo borro por las dudas.
+  
+
+Segun (opcion) hacer
+    1: Mostrar ("Se esta haciendo un socio")
+    2: Mostrar ("Se proceso un prestamo")
+    3: Mostrar ("Se proceso una devolucion")
+    Fin Segun
+
+
+hora <-- hora + 5 
+
+
+// Esto lo use de referencia, lo dejo por las dudas.
+ segun (secuencial) hacer
+        0.. 9: secuencial <-- concatenar("000", secuencial)
+        10.. 99: secuencial <-- concatenar("00", secuencial)
+        100.. 999: secuencial <-- concatenar("0", secuencial)
+        1000.. 9999: secuencial <-- secuencial
+    fin segun     
