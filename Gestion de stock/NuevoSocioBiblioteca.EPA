@@ -9,14 +9,11 @@ Inicio
     mostrar("Ingrese ocupacion del socio: ")
     ingresar(ocupacion)
     mostrar("Ingrese correo del socio: ")
-    ingresar(correo)
-    
+    ingresar(correo)  
     // Llamada al subalgoritmo para generar el codigodesocio
-    CodigoDeSocio(nombre, apellido, codigodesocio, contsocio)
-    
+    CodigoDeSocio(nombre, apellido, codigodesocio, contsocio) 
     // llamado al subalgoritmo para verificacion de correo
     VerificacionDeCorreo(correo, verificaion)
-
     // Mostrar los datos ingresados
     mostrar("Datos del nuevo socio:")
     mostrar("Nombre: ", nombre)
@@ -26,15 +23,16 @@ Inicio
     mostrar("Correo: ", correo)
     mostrar("Codigo de Socio: ", codigodesocio)
 Fin
-
+//EJECUCION DEL SUBALG. CODIGO DE SOCIO
 Subalgoritmo CodigoDeSocio(E:nombre,apellido:cadena;S:codigodesocio:cadena, contsocio: entero)   
 Var
     nombre, apellido, codnom, codapell, codigodesocio: cadena
-    i, cantsocios, secuencial: entero
+    i, cantsocios, secuencial, tope: entero
 Inicio
     codnom <-- ""
     codapell <-- ""
     tope <-- long(nombre)
+    I <-- 1
 // genera el codigo del nombre
     desde (i <-- 1) hasta (tope) hacer
         letra <-- nombre[i]
@@ -42,6 +40,7 @@ Inicio
             65.. 90: mostrar("nombre verificado")
             97.. 122: mostrar("ingrese su nombre en mayusculas")
         fin segun
+        mostrar(nombre)
     fin desde
     i <-- 1
     tope <-- 3
@@ -51,11 +50,12 @@ Inicio
 // gnenera el codigo del apellido
     tope <-- long(apellido)
     desde (i <-- 1) hasta (tope) hacer
-        letra <-- nombre[i]
+        letra <-- apellido[i]
         segun ord(letra) hacer
             65.. 90: mostrar("apellido verificado")
             97.. 122: mostrar("ingrese su apellido en mayusculas")
         fin segun
+        ingresar(apellido)
     fin desde
     i <-- 1
     tope <-- 3
@@ -75,28 +75,36 @@ Inicio
     codigodesocio <-- concatenar(codnom,car(45), codapell,car(45),secuencial)
     mostrar("El codigo del socio es: ",codigodesocio)
 Fin
-
+//EJECUCION DEL SUBALG. VERIDICACION DEL CORREO.
 Subalgoritmo VerificacionDeCorreo (E: correo: cadena; S: verificacion: booleana)
 Var
     verificacion: booleana
-    i, cantidaddearroba, punto, arroba: entero
+    i, cantidaddearroba, punto, arroba, tope: entero
 Inicio
+    i <-- 0
+    verificacion <-- F
     cantidaddearroba <-- 0
     arroba <-- 0
     punto-- 0 
-    desde [i <-- 1] hasta [i <-- long(correo)] hacer
-        si (correo[i] = "@") entonces
-            cantidaddearroba < cantidaddearroba + 1
-            punto <-- i + 1
-            arroba <-- i
+    tope <-- long(correo)
+    repetir
+        desde [i <-- 1] hasta [i <-- tope] hacer
+            si (correo[i] = "@") entonces
+                cantidaddearroba < cantidaddearroba + 1
+                punto <-- i + 1
+                arroba <-- i
+                sino
+                    mostrar("ERROR; correo invalido")
+            fin si
+        fin desde
+        si (cantidaddearroba = 1) entonces
+            si (ord(punto) > ord(arroba)) entonces
+                verificacion <-- verdadero
+                sino
+                verificacion <-- falso
+                fin sino
+            fin si
         fin si
-    fin desde
-    si (cantidaddearroba = 1) entonces
-        si (punto > arroba) entonces
-            verificacion <-- verdadero
-            sino
-            verificacion <-- falso
-            fin sino
-        fin si
-    fin si
+    hasta(verificacion = V)
+    mostrar("correo verificado")
 Fin
