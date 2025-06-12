@@ -1,11 +1,4 @@
 Subalgoritmo Stock (E FiccionStock, TecnicoStock, InfantilStock, RefStock, Opcion: entero; Codigo: cadena; S FiccionStock, TecnicoStock, InfantilStock: entero)
-VAR
-//Estas variables deberian ir en el algoritmo principal
-//FiccionStock, TecnicoStock,InfantilStock, (Entero);
-//en opcion 1 es para sacar stock 2 para agregar stock
-Opcion,(entero);
-Codigo,(cadena);
-
 INICIO
 //Sacar stock
 Si (Opcion = 1) entonces
