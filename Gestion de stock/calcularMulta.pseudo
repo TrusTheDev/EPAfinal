@@ -1,0 +1,20 @@
+Subalgoritmo calcularMulta(E:multa: entero, ocupacion: cadena;)
+CONST
+multaEstudiante = (50/100)*multa 
+multaDocente = (30/100)*multa
+
+INICIO
+
+Si(ocupacion = "Estudiante" o ocupacion = "Docente") hacer
+    Según (ocupacion) hacer
+    "Estudiante": mostrar("Tiene una multa de ", multaEstudiante;)
+    "Docente": mostrar("Tiene una multa de ", multa /)
+    Fin Según
+FinSi
+
+Sino
+    Mostrar("Tiene una multa de ", multa)
+FinSino
+FIN
+
+

@@ -2,15 +2,10 @@ Subalgoritmo procesarDevoluciones (E: acumMultas,FiccionStock, TecnicoStock, Inf
 DiaDeHoy, (entero);
 DiasAtraso, (entero);
 Codigo,ocupacion, (cadena);
-multa: (entero);
-
-//Variable que debería guardarse en el algoritmo principal
-//FiccionStock, TecnicoStock, InfantilStock
+multa: (real);
 
 INICIO
-//Asegurar dato
 ingresar(DiaDeHoy)
-//Arreglar esto, creo que no debería ser así
 lapsoDeDias <- abs(DiaDeHoy - Fecha)
 multa <- 0
 
@@ -24,8 +19,7 @@ Si (Codigo = "FIC") entonces
     Si (lapsoDeDias > 25) entonces
     multa <- multa + 1200
     FinSi
-
-    Mostrar("Libro devuelto, multa:", multa )
+    calcularMulta(multa, ocupacion)
 FinSi
 
 Si (Codigo = "TEC") entonces
@@ -40,8 +34,7 @@ Si (Codigo = "TEC") entonces
     acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
-
-    Mostrar("Libro devuelto, multa:", multa )
+    calcularMulta(multa, ocupacion)
     
 FinSi
 
@@ -57,9 +50,8 @@ Si (Codigo = "INF") entonces
     acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
-    Mostrar("Libro devuelto, multa:", multa )
+    calcularMulta(multa, ocupacion)
 FinSi
-
 
 Si (Codigo = "REF") entonces
     Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
@@ -73,7 +65,8 @@ Si (Codigo = "REF") entonces
     acumMultas <-- acumMultas + 1
     multa <- multa + 1200
     FinSi
-    Mostrar("Libro devuelto, multa:", multa )
+    calcularMulta(multa, ocupacion)
 FinSi
-
 FIN
+
+
