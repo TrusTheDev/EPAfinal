@@ -6,7 +6,6 @@ multa: (real);
 INICIO
 multa <- 0
 Si (Codigo = "FIC") entonces
-//Solo me interesa agregar el stock en FIC, puedo no capturar la información que no necesito? por ahora utilizo una variable llamada basura
     Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"FIC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 15 y lapsoDeDias <= 18) entonces
     acumMultas <-- acumMultas + 1
@@ -30,7 +29,6 @@ Si (Codigo = "TEC") entonces
     multa <- multa + 1200
     FinSi
     calcularMulta(multa, ocupacion)
-    
 FinSi
 
 Si (Codigo = "INF") entonces
