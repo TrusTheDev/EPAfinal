@@ -55,6 +55,8 @@ Repetir
     FinSi
 Hasta (esNumerico = verdadero)
 // Verificar el stock del libro //
+//Utilizar E/S se puede hacer eso para evitar escribir tantas variables, unidad 5
+//Funciona cuando lo creas desde el subalgoritmo
 Stock(E FiccionStock, TecnicoStock, InfantilStock, RefStock: entero S FiccionStock, TecnicoStock, InfantilStock, RefStock: entero)
 // Procesar préstamo //
 obtenerFechaEntero (dia, mes, anio)
