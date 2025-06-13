@@ -98,7 +98,7 @@ Inicio
             fin si
         fin desde
         si (cantidaddearroba = 1) entonces
-            si (ord(punto) > ord(arroba)) entonces
+            si (punto) > (arroba) entonces
                 verificacion <-- verdadero
                 sino
                 verificacion <-- falso
