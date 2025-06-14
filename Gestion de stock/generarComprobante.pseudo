@@ -1,17 +1,18 @@
 
- Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion)
+ Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora)
   
 VAR 
   digitos: cadena 
 
 Inicio
   digitos <-- "    "
-  Mostrar (codigodesocio, nombre, apellido, fecha)
+
+  //Se le solicita al usuario que ingrese 4 digitos para el numero de comprobante
   Mostrar ("Ingrese un numero de 4 digitos")
 
 //Puede que este mal. Arreglar
 
-//Contador de i para que 
+//Contador de i para solicitar al usuario que ingrese 4 digitos
 Desde i <-- 1 hasta i = 5 hacer
 
     Repetir
@@ -42,23 +43,20 @@ Desde i <-- 1 hasta i = 5 hacer
 
     i <-- i+1
 
-    concatenar (digitos, digitos) //No recuerdo si esto debe seguir estando, no lo borro por las dudas.
-  
 
+    enteroAcadena: (anio)
+    enteroAcadena: (mes)
+    enteroAcadena: (dia)
+
+  //Se muestran los Datos del usuario, la fecha de la operacion, y el codigo generado por la fecha y los digitos ingresados por el usuario
+    Mostrar (codigodesocio, nombre, apellido, fecha)
+    Mostrar (concatenar (anio, mes, dia, digitos))
+  //aun falta agregar la hora
+
+//Dependiendo que opcion se selecciono al inicio, el comprobante muestra sique operacion se hizo
 Segun (opcion) hacer
     1: Mostrar ("Se esta haciendo un socio")
     2: Mostrar ("Se proceso un prestamo")
     3: Mostrar ("Se proceso una devolucion")
     Fin Segun
 
-
-hora <-- hora + 5 
-
-
-// Esto lo use de referencia, lo dejo por las dudas.
- segun (secuencial) hacer
-        0.. 9: secuencial <-- concatenar("000", secuencial)
-        10.. 99: secuencial <-- concatenar("00", secuencial)
-        100.. 999: secuencial <-- concatenar("0", secuencial)
-        1000.. 9999: secuencial <-- secuencial
-    fin segun     
