@@ -1,10 +1,10 @@
 
- Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora)
+ Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
   
 VAR 
   digitos: cadena 
-
 Inicio
+
   digitos <-- "    "
 
   //Se le solicita al usuario que ingrese 4 digitos para el numero de comprobante
@@ -20,29 +20,9 @@ Desde i <-- 1 hasta i = 5 hacer
     hasta
         (enteroAcadena(digitos[i]) >= 0 y <= 9)
 
-    i <-- i+1
+finRepetir
 
-    Repetir
-        ingresar (digitos[i])
-    hasta
-        (enteroAcadena(digitos[i]) >= 0 y <= 9)
-
-    i <-- i+1
-
-    Repetir
-        ingresar (digitos[i])
-    hasta
-        (enteroAcadena(digitos[i]) >= 0 y <= 9)
-
-    i <-- i+1
-
-    Repetir
-        ingresar (digitos[i])
-    hasta
-        (enteroAcadena(digitos[i]) >= 0 y <= 9)
-
-    i <-- i+1
-
+finDesde
 
     enteroAcadena: (anio)
     enteroAcadena: (mes)
@@ -53,10 +33,38 @@ Desde i <-- 1 hasta i = 5 hacer
     Mostrar (concatenar (anio, mes, dia, digitos))
   //aun falta agregar la hora
 
-//Dependiendo que opcion se selecciono al inicio, el comprobante muestra sique operacion se hizo
+//Dependiendo que opcion se selecciono al inicio, el comprobante muestra que operacion se hizo
 Segun (opcion) hacer
-    1: Mostrar ("Se esta haciendo un socio")
+    1: Mostrar ("Se esta haciendo un socio") 
     2: Mostrar ("Se proceso un prestamo")
     3: Mostrar ("Se proceso una devolucion")
     Fin Segun
 
+Segun (opcion) hacer
+    1: min <-- min + 5
+    2: min <-- min + 10
+    3: min <-- min + 7
+    Fin Segun
+//Bloque para sacar la hora
+ Si (min = 60) hacer
+    min <-- 0
+FinSi
+    hora <-- hora + 1
+ Si (hora = 24) hacer
+    hora <-- 0
+FinSi
+
+
+// Esto es para que se vea 00:00
+Si (min < 10) hacer
+enteroAcadena (min)
+concatenar ("0",min)
+FinSi
+Si (hora < 10) hacer
+enteroAcadena (hora)
+concatenar ("0",hora)
+FinSi
+
+Mostrar ("hora de la operacion:" hora , ":" , min , "hs")
+
+Fin
