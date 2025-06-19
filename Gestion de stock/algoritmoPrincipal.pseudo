@@ -18,8 +18,13 @@ FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
 //Logica reportes estadisticos
 totalLibros: entero;
-
+acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;
 INICIO
+acumCatFic <-- 0
+acumCatInf <-- 0
+acumCatRef <-- 0
+acumCatTec <-- 0
+
 opcion <-- -1
 
 mientras (TecnicoStock >= 0){
