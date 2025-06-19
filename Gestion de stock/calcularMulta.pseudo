@@ -2,7 +2,7 @@ Subalgoritmo calcularMulta(E:multa: entero, ocupacion: cadena;)
 CONST
 multaDefault = multa
 multaEstudiante = (50/100)*multa 
-multaDocente = (30/100)*multa
+multaDocente = (70/100)*multa
 
 INICIO
 
