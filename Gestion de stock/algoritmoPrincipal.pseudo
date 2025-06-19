@@ -16,6 +16,9 @@ opcion, acumMultas: entero;
 //En proceso, habria que ver como sacar el lapso de dias y agregar el acumulador de multas.
 FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
+//Logica reportes estadisticos
+totalLibros: entero;
+
 INICIO
 opcion <-- -1
 
@@ -38,14 +41,16 @@ mientras (RefStock >= 0){
     mostrar("Ingresar la cantidad RefStock")
     Ingresar(RefStock)
 }
+total <-- (FiccionStock + TecnicoStock + InfantilStock + RefStock)
 
 mientras (opcion <> 0) hacer
     Mostrar("Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros")
     Ingresar(opcion)
     Según (opcion) hacer
-        1: NuevoSocioBiblioteca(/*entrada*/contsocio,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio);
+        1: NuevoSocioBiblioteca(/*entrada*/contsocio,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio) generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min);
         2: ProcesarPrestamo(/*entrada*/codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, /*salida*/codigodesocio,isbnLibro,fecha, dia, mes, anio, FiccionStock, TecnicoStock, InfantilStock, RefStock);
         3: ProcesarDevoluciones(/*entrada*/ acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, dia, diasDePrestamo, /*salida*/acumMultas, FiccionStock, TecnicoStock, InfantilStock);
     Fin Según
 fin mientras
 FIN
+

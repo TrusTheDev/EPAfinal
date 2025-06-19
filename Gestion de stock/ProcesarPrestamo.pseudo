@@ -39,7 +39,7 @@ Repetir
         esNumerico <-- falso
         FinSi
    Fin Desde
-Hasta (esNumerico = verdadero)
+Hasta (esNumerico = verdadero y codigoLibro = "INF" O codigoLibro = "FIC" O codigoLibro = "REF" O codigoLibro = "TEC") 
 // Validación del ISBN //
 Repetir
     Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
@@ -59,6 +59,7 @@ Hasta (esNumerico = verdadero)
 //Funciona cuando lo creas desde el subalgoritmo
 Stock(E FiccionStock, TecnicoStock, InfantilStock, RefStock: entero S FiccionStock, TecnicoStock, InfantilStock, RefStock: entero)
 // Procesar préstamo //
+
 obtenerFechaEntero (dia, mes, anio)
 obtenerFechaCadena (dia, mes, anio, fecha)
 Mostrar ("-------Préstamo registrado-------")
@@ -69,3 +70,5 @@ acumu_pres <-- acumu_pres + 1
 FinSi 
 FinMientras
 FIN
+
+subalgoritmo acumLibroPorCat (E: codigoLibro: cadena; S: acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;)
