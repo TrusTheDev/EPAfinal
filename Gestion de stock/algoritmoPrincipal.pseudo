@@ -17,7 +17,7 @@ opcion, acumMultas: entero;
 FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
 //Logica reportes estadisticos
-diasDeatraso, totalLibros, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;
+diasDeatraso, total_stock_referencia, total_stock_infantil, total_stock_tecnico, total_stock_ficcion, totalLibros, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;
 INICIO
 acumCatFic <-- 0
 acumCatInf <-- 0
@@ -30,21 +30,25 @@ opcion <-- -1
 mientras (TecnicoStock >= 0){
     mostrar("Ingresar la cantidad TecnicoStock")
     Ingresar(TecnicoStock)
+    total_stock_tecnico <-- TecnicoStock
 }
 
 mientras (FiccionStock >= 0){
     mostrar("Ingresar la cantidad FiccionStock")
     Ingresar(FiccionStock)
+    total_stock_ficcion <-- FiccionStock
 }
 
 mientras (InfantilStock >= 0){
     mostrar("Ingresar la cantidad InfantilStock")
     Ingresar(InfantilStock)
+    total_stock_infantil <-- InfantilStock
 }
 
 mientras (RefStock >= 0){
     mostrar("Ingresar la cantidad RefStock")
     Ingresar(RefStock)
+    total_stock_referencia <-- RefStock
 }
 total <-- (FiccionStock + TecnicoStock + InfantilStock + RefStock)
 

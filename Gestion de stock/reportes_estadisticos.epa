@@ -1,0 +1,69 @@
+//notas; 
+//se modifico el subalgoritmo nuevossociosbiblioteca
+//se creo una constante para agregar al algoritmo principal
+//se modifica el alg de "procesardevoluciones" para agregar la sumatoria de los dias de atraso en prestamos
+// calculos; promedio = suma de valores / cantidad de valores
+//           porcentaje = (parte / total) * 100
+
+
+subalgoritmo reportes_estadisticos (E/S: totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas: real;
+E: sociosSinAtraso, totalSocios, TecnicoStock, FiccionStock, InfantilStock, RefStock, cant_socios, num_maximo_socios, total_stock_tecnico, total_stock_ficcion, total_stock_infantil, (suma de dias de atraso por categoria y cant de prestamos): entero; 
+S: SinAtrasos, Promedio_dias_atraso_tec ,Promedio_dias_atraso_ref, Promedio_dias_atraso_inf ,Promedio_dias_atraso_ficc, porcentage_TecnicoStock, porcentage_FiccionStock, porcentage_InfantilStock, 
+porcentage_RefStock, total_stock_referencia, porcentage_cant_socio, (promedio atraso de prestamos))
+var
+tecnico_prestados, ficcion_prestados, infantil_prestados, referencia_prestados: entero
+porcentage_cant_socio, porcentage_TecnicoStock, porcentage_FiccionStock, porcentage_TecnicoStock, porcentage_RefStock: real
+
+inicio
+//asignacion de los valores de libros prestados por categoria
+tecnico_prestados <-- total_stock_tecnico - TecnicoStock
+ficcion_prestados <-- total_stock_ficcion - FiccionStock
+infantil_prestados <-- total_stock_infantil - InfantilStock 
+referencia_prestados <-- total_stock - RefStock 
+//porcentage de libros prestados por categoria
+porcentage_TecnicoStock <-- (tecnico_prestados / total_stock_tecnico) * 100
+porcentage_FiccionStock <-- (ficcion_prestados / total_stock_ficcion) * 100
+porcentage_InfantilStock <-- (infantil_prestados / total_stock_infantil) * 100
+porcentage_RefStock <-- (referencia_prestados / total_stock_referencia) * 100
+mostrar("porcentage de libros prestados de tematica tecnica son; ", porcentage_TecnicoStock)
+mostrar("porcentage de libros prestados de tematica ficcion son; ",porcentage_FiccionStock)
+mostrar("porcentage de libros prestados de tematica infantil son; ",porcentage_InfantilStock)
+mostrar("porcentage de libros prestados de tematica de referencia son; ",porcentage_RefStock)
+
+//cantidad total de socios registrados
+porcentage_cant_socio <-- (cant_socios / num_maximo_socios) * 100
+mostrar("el porcentage de la cantidad de socios es; ",porcentage_cant_socio)
+
+//promedio de dias de atraso por categoria de libro
+//(sumatotal de dias = acumulador de los dias que se atraso el usuario por cada prestamo realizado)
+Promedio_dias_atraso_ficc <-- (diasDeatraso / acumCatFic)
+Promedio_dias_atraso_inf <-- (diasDeatraso / acumCatInf)
+Promedio_dias_atraso_ref <-- (diasDeatraso / acumCatRef)
+Promedio_dias_atraso_tec <-- (diasDeatraso / acumCatTec)
+mostrar("los dias de atraso de la categoria ficcion son; ",Promedio_dias_atraso_ficc)
+mostrar("los dias de atraso de la categoria infantil son; ",Promedio_dias_atraso_inf)
+mostrar("los dias de atraso de la categoria referencia son; ",Promedio_dias_atraso_ref)
+mostrar("los dias de atraso de la categoria tecnico son; ",Promedio_dias_atraso_tec)
+
+// Recaudación discriminando por socio
+//Las variables totalMultas... deben estar inicializadas en el algoritmo principal
+//Deben aumentarse en el subalgoritmo calcularMultas
+// La variable sociosSinAtrasos se aumenta en la validación del subalgoritmo procesarPrestamo
+// totalMultas se suma cada vez que se aplica una multa
+Mostrar("Recaudación por tipo de socio: ")
+Mostrar("- Estudiantes: $", totalMultasEstudiantes)
+Mostrar("- Docentes: $", totalMultasDocentes)
+Mostrar("- Regulares: $", totalMultasRegulares)
+totalMultas <-- (totalMultasEstudiantes + totalMultasDocentes + totalMultasRegulares)
+Mostrar("Total recaudado: $", totalMultas)
+
+//porcentaje de socios que nunca tubieron atrasos
+Si (totalSocios > 0) entonces
+    SinAtrasos <-- (sociosSinAtraso / totalSocios) * 100
+    Mostrar("Porcentaje de socios sin atrasos: ", SinAtrasos, "%")
+Sino
+    Mostrar("No hay datos suficientes")
+FinSi
+
+Fin
+
