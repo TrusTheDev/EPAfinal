@@ -7,14 +7,14 @@ edad, contsocio: entero;
 
 //Lógica para Procesar prestamo
 isbnLibro, codigoLibro, fecha: cadena;
-dia, mes, anio, acumu_pres: entero;
+dia, mes, anio, acumu_pres, FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
 //utilidades del algoritmo principal.
 opcion, acumMultas: entero;
 
 //Lógica para procesarDevoluciones
-//En proceso, habria que ver como sacar el lapso de dias y agregar el acumulador de multas.
-FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
+//Mismos que las de procesar prestamo
+
 
 //Logica reportes estadisticos
 diasDeatraso, total_stock_referencia, total_stock_infantil, total_stock_tecnico, total_stock_ficcion, totalLibros, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;
@@ -27,25 +27,25 @@ diasDeatraso <-- 0
 
 opcion <-- -1
 
-mientras (TecnicoStock >= 0){
+mientras (TecnicoStock <= 0){
     mostrar("Ingresar la cantidad TecnicoStock")
     Ingresar(TecnicoStock)
     total_stock_tecnico <-- TecnicoStock
 }
 
-mientras (FiccionStock >= 0){
+mientras (FiccionStock <= 0){
     mostrar("Ingresar la cantidad FiccionStock")
     Ingresar(FiccionStock)
     total_stock_ficcion <-- FiccionStock
 }
 
-mientras (InfantilStock >= 0){
+mientras (InfantilStock <= 0){
     mostrar("Ingresar la cantidad InfantilStock")
     Ingresar(InfantilStock)
     total_stock_infantil <-- InfantilStock
 }
 
-mientras (RefStock >= 0){
+mientras (RefStock <= 0){
     mostrar("Ingresar la cantidad RefStock")
     Ingresar(RefStock)
     total_stock_referencia <-- RefStock
@@ -323,57 +323,60 @@ multa: (real);
 INICIO
 diasDeatraso <-- (diasDeatraso + lapsoDeDias)
 multa <- 0
-Si (Codigo = "FIC") entonces
-    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"FIC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+
+Según (Codigo) hacer
+"FIC": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"FIC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 15 y lapsoDeDias <= 18) entonces
-    acumMultas <-- acumMultas + 1
-    multa <- multa + 500
-    Si (lapsoDeDias > 18 y lapsoDeDias <= 25) entonces
-    multa <- multa + 800
-    Si (lapsoDeDias > 25) entonces
-    multa <- multa + 1200
+        acumMultas <-- acumMultas + 1
+        multa <- multa + 500
+        Si (lapsoDeDias > 18 y lapsoDeDias <= 25) entonces
+            multa <- multa + 800
+            Si (lapsoDeDias > 25) entonces
+                multa <- multa + 1200
+            FinSi
+        FinSi
     FinSi
     calcularMulta(multa, ocupacion)
-FinSi
 
-Si (Codigo = "TEC") entonces
-    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"TEC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+"TEC": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"TEC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 7 y lapsoDeDias <= 10) entonces
-    acumMultas <-- acumMultas + 1
-    multa <- multa + 500
-    Si (lapsoDeDias > 10 y lapsoDeDias <= 17) entonces
-    multa <- multa + 800
-    Si (lapsoDeDias > 17) entonces
-    multa <- multa + 1200
+        acumMultas <-- acumMultas + 1
+        multa <- multa + 500
+        Si (lapsoDeDias > 10 y lapsoDeDias <= 17) entonces
+            multa <- multa + 800
+            Si (lapsoDeDias > 17) entonces
+                multa <- multa + 1200
+            FinSi
+        FinSi
     FinSi
     calcularMulta(multa, ocupacion)
-FinSi
-
-Si (Codigo = "INF") entonces
-    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"INF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+"INF": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"INF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 21 y lapsoDeDias <= 24) entonces
-    acumMultas <-- acumMultas + 1
-    multa <- multa + 500
-    Si (lapsoDeDias > 24 y lapsoDeDias <= 31) entonces
-    multa <- multa + 800
-    Si (lapsoDeDias > 31) entonces
-    multa <- multa + 1200
+        acumMultas <-- acumMultas + 1
+        multa <- multa + 500
+        Si (lapsoDeDias > 24 y lapsoDeDias <= 31) entonces
+        multa <- multa + 800
+            Si (lapsoDeDias > 31) entonces
+                multa <- multa + 1200
+            FinSi
+        FinSi
     FinSi
     calcularMulta(multa, ocupacion)
-FinSi
 
-Si (Codigo = "REF") entonces
-    Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
+"REF": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
     Si (lapsoDeDias > 0 y lapsoDeDias <= 3) entonces
-    acumMultas <-- acumMultas + 1
-    multa <- multa + 500
-    Si (lapsoDeDias > 3 y lapsoDeDias <= 7) entonces
-    multa <- multa + 800
-    Si (lapsoDeDias > 7) entonces
-    multa <- multa + 1200
+        acumMultas <-- acumMultas + 1
+        multa <- multa + 500
+        Si (lapsoDeDias > 3 y lapsoDeDias <= 7) entonces
+        multa <- multa + 800
+            Si (lapsoDeDias > 7) entonces
+                multa <- multa + 1200
+            FinSi
+        FinSi
     FinSi
     calcularMulta(multa, ocupacion)
-FinSi
+
+Fin Según
 FIN
 
 //Calculo de la multa aplicando ocupación
@@ -403,65 +406,41 @@ Subalgoritmo Stock (E FiccionStock, TecnicoStock, InfantilStock, RefStock, Opcio
 INICIO
 //Sacar stock
 Si (Opcion = 1) entonces
-    Si (Codigo = "FIC") entonces
-        Si (FiccionStock <> 0) entonces
-        FiccionStock <- FiccionStock - 1
-        Sino 
-        Mostrar("No hay stock")
-        FinSi
-    FinSi
-
-    Si (Codigo = "TEC") entonces
-        Si (TecnicoStock <> 0) entonces
-        TecnicoStock <- TecnicoStock - 1
-        Sino 
-        Mostrar("No hay stock")
-        FinSi
-    FinSi
-
-    Si (Codigo = "INF") entonces
-        Si (InfantilStock <> 0) entonces
-        InfantilStock <- InfantilStock - 1
-        Sino 
-        Mostrar("No hay stock")
-        FinSi
-    FinSi
-
-    Si (Codigo = "REF") entonces
-        Si (RefStock <> 0) entonces
-        RefStock <- RefStock - 1
-        Sino
-        mostrar("No hay stock")
-    FinSi
-
-    Sino
-    Mostrar("Código ingresado no valido")
+    Según (Codigo) hacer
+        "FIC":  Si (FiccionStock <> 0) entonces
+                FiccionStock <- FiccionStock - 1
+                Sino 
+                Mostrar("No hay stock")
+                FinSi
+        "TEC": Si (TecnicoStock <> 0) entonces
+                TecnicoStock <- TecnicoStock - 1
+                Sino 
+                Mostrar("No hay stock")
+                FinSi
+        "INF": Si (InfantilStock <> 0) entonces
+                InfantilStock <- InfantilStock - 1
+                Sino 
+                Mostrar("No hay stock")
+                FinSi
+        "REF": Si (RefStock <> 0) entonces
+                RefStock <- RefStock - 1
+                Sino
+                mostrar("No hay stock")
+                FinSi
+        Default: mostrar("Codigo ingresado no valido")        
+    Fin Según
 FinSi
 
 //Agregar stock
 Si (Opcion = 2) entonces
-    Si (Codigo = "FIC") entonces
-        FiccionStock <- FiccionStock + 1
-    FinSi
-
-    Si (Codigo = "TEC") entonces
-        TecnicoStock <- TecnicoStock + 1
-    FinSi
-
-    Si (Codigo = "INF") entonces
-        InfantilStock <- InfantilStock + 1
-    FinSi
-
-    Si (Codigo = "REF") entonces
-        RefStock <- RefStock + 1
-        Sino
-        mostrar("No hay stock")
-    FinSi
-
-    Sino
-    Mostrar("Código ingresado no valido")
+    Según (Codigo) hacer
+        "FIC": FiccionStock <- FiccionStock + 1
+        "TEC": TecnicoStock <- TecnicoStock + 1
+        "INF": InfantilStock <- InfantilStock + 1
+        "REF": RefStock <- RefStock + 1
+        Default: mostrar("El codigo ingresado es incorrecto")
+    Fin Según
 FinSi
-
 FIN
 
 // Generar comprobante por cada opción elegida
