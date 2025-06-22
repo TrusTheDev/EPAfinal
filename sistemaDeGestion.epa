@@ -16,9 +16,14 @@ opcion, acumMultas: entero;
 //En proceso, habria que ver como sacar el lapso de dias y agregar el acumulador de multas.
 FiccionStock, TecnicoStock, InfantilStock, RefStock, diasDePrestamo: entero;
 
+//Variables para la Hora y Minutos
+hora, min: entero
+
 //Logica reportes estadisticos
 diasDeatraso, total_stock_referencia, total_stock_infantil, total_stock_tecnico, total_stock_ficcion, totalLibros, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;
 INICIO
+hora <-- 0
+min <-- 0
 acumCatFic <-- 0
 acumCatInf <-- 0
 acumCatRef <-- 0
@@ -469,27 +474,19 @@ FIN
  Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
   
 VAR 
-  digitos: cadena 
+  digitos: entero
 Inicio
-
-  digitos <-- "    "
+  digitos <-- 0
 
   //Se le solicita al usuario que ingrese 4 digitos para el numero de comprobante
-  Mostrar ("Ingrese un numero de 4 digitos")
-
-//Puede que este mal. Arreglar
-
-//Contador de i para solicitar al usuario que ingrese 4 digitos
-Desde i <-- 1 hasta i = 5 hacer
-
+ 
     Repetir
-        ingresar (digitos[i])
+        Mostrar ("Ingrese un numero de 4 digitos")
+        ingresar (digitos)
     hasta
-        (enteroAcadena(digitos[i]) >= 0 y <= 9)
+        (digitos >= 1000 y <= 9999)
 
 finRepetir
-
-finDesde
 
     enteroAcadena: (anio)
     enteroAcadena: (mes)
@@ -507,22 +504,24 @@ Segun (opcion) hacer
     3: Mostrar ("Se proceso una devolucion")
     Fin Segun
 
+//Dependiendo de la operacion que se hizo estimamos el tiempo que pudo tardar para acumularlo a la hora
 Segun (opcion) hacer
     1: min <-- min + 5
     2: min <-- min + 10
     3: min <-- min + 7
     Fin Segun
-//Bloque para sacar la hora
- Si (min = 60) hacer
-    min <-- 0
-FinSi
+
+// Si min llega a 60 o mas se suma una hora. Se le resta 60 para, en caso de superar el valor de 60, dejar los minutos sobrantes
+ Si (min >= 60) hacer
+    min <-- min - 60
     hora <-- hora + 1
+FinSi
+
  Si (hora = 24) hacer
     hora <-- 0
 FinSi
 
-
-// Esto es para que se vea 00:00
+// Esto es para que se vea 00:00 en caso de que hora o min tengan un numero menor a 10
 Si (min < 10) hacer
 enteroAcadena (min)
 concatenar ("0",min)
@@ -535,7 +534,6 @@ FinSi
 Mostrar ("hora de la operacion:" hora , ":" , min , "hs")
 
 Fin
-
 //Reportes estadisticos
 
 //notas; 
