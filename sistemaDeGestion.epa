@@ -61,34 +61,35 @@ mientras (opcion <> 0) hacer
     Mostrar("Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros")
     Ingresar(opcion)
     Según (opcion) hacer
-        1: NuevoSocioBiblioteca(/*entrada*/contsocio,/*salida*/nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio)
+        1: NuevoSocioBiblioteca(E/S: nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio)
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min) 
         2: ProcesarPrestamo(/*entrada*/codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, /*salida*/codigodesocio,isbnLibro,fecha, dia, mes, anio, FiccionStock, TecnicoStock, InfantilStock, RefStock)
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
         3: ProcesarDevoluciones(/*entrada*/ acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, dia, diasDePrestamo, /*salida*/acumMultas, FiccionStock, TecnicoStock, InfantilStock)
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
+    Sino mostrar("Opción invalida")
     Fin Según
 fin mientras
 FIN
 
 
 //Opción 1, crear socios
-Subalgoritmo NuevoSocioBiblioteca (E: contsocio, S: nombre, apellido, codigodesocio, ocupacion, correo, edad, contsocio)
+Subalgoritmo NuevoSocioBiblioteca (E/S: nombre, apellido, codigodesocio, ocupacion, correo: cadena; edad, contsocio: entero;)
 Inicio
-    mostrar("Ingrese nombre del socio: ")
+    mostrar("Ingrese nombre del socio")
     ingresar(nombre)
-    mostrar("Ingrese apellido del socio: ")
+    mostrar("Ingrese apellido del socio")
     ingresar(apellido)
-    mostrar("Ingrese edad del socio: ")
+    mostrar("Ingrese edad del socio")
     ingresar(edad)
-    mostrar("Ingrese ocupacion del socio: ")
+    mostrar("Ingrese ocupacion del socio")
     ingresar(ocupacion)
-    mostrar("Ingrese correo del socio: ")
+    mostrar("Ingrese correo del socio")
     ingresar(correo)  
     // Llamada al subalgoritmo para generar el codigodesocio
-    CodigoDeSocio(nombre, apellido, codigodesocio, contsocio) 
+    CodigoDeSocio(nombre, apellido,contsocio, codigodesocio, contsocio) 
     // llamado al subalgoritmo para verificacion de correo
-    VerificacionDeCorreo(correo, verificaion)
+    VerificacionDeCorreo(correo)
     // Mostrar los datos ingresados
     mostrar("Datos del nuevo socio:")
     mostrar("Nombre: ", nombre)
@@ -99,87 +100,109 @@ Inicio
     mostrar("Codigo de Socio: ", codigodesocio)
 Fin
 //EJECUCION DEL SUBALG. CODIGO DE SOCIO
-Subalgoritmo CodigoDeSocio(E:nombre,apellido:cadena;S:codigodesocio:cadena, contsocio: entero)   
+Subalgoritmo CodigoDeSocio(E:nombre,apellido: cadena; contsocio: entero; S:codigodesocio:cadena; contsocio: entero;)   
 Var
-    nombre, apellido, codnom, codapell, codigodesocio: cadena
-    i, cantsocios, secuencial, tope: entero
+    secuencial,codnom, codapell: cadena
+    tope: entero
+    Verificacion: booleano;
 Inicio
+    Verificacion <-- verdadero;
     codnom <-- ""
     codapell <-- ""
-    tope <-- long(nombre)
-    I <-- 1
 //genera el codigo del nombre
-    desde (i <-- 1) hasta (tope) hacer
-        letra <-- nombre[i]
-        segun ord(letra) hacer
-            65.. 90: mostrar("nombre verificado")
-            97.. 122: mostrar("ingrese su nombre en mayusculas")
-        fin segun
-        mostrar(nombre)
-    fin desde
-    i <-- 1
+    Mientras (Verificacion) hacer
+        tope <-- long(nombre)
+        desde i <-- 1 hasta tope hacer
+            segun ord(nombre[i]) hacer
+                65.. 90: Verificacion <-- falso;
+                97.. 122: mostrar("ingrese su nombre en mayusculas")
+                    Verificacion <-- verdadero;
+                    ingresar(nombre)
+                    i <-- tope;
+            finSegun
+        finDesde
+    Fin Mientras
+    mostrar(nombre)
     tope <-- 3
-    desde i hasta tope hacer
+    desde i <-- 1 hasta tope hacer
         codnom <-- concatenar(codnom,nombre[i])
     fin desde
 // gnenera el codigo del apellido
-    tope <-- long(apellido)
-    desde (i <-- 1) hasta (tope) hacer
-        letra <-- apellido[i]
-        segun ord(letra) hacer
-            65.. 90: mostrar("apellido verificado")
-            97.. 122: mostrar("ingrese su apellido en mayusculas")
-        fin segun
-        ingresar(apellido)
-    fin desde
-    i <-- 1
+    
+    Verificacion <- verdadero
+        Mientras (Verificacion) hacer
+        desde i <-- 1 hasta tope hacer
+            tope <-- long(apellido)
+            segun ord(apellido[i]) hacer
+                65.. 90: mostrar Verificacion <-- falso;
+                97.. 122: mostrar("ingrese su nombre en mayusculas")
+                    Verificacion <-- verdadero;
+                    ingresar(apellido)
+                    i <-- tope;
+            finSegun
+        finDesde
+    FinMientras
     tope <-- 3
-    desde i hasta tope hacer
+    desde i <-- 1 hasta tope hacer
         codnom <-- concatenar(codnom,apellido[i])
-    fin desde
+    finDesde
 // genera un munero secuencial del socio
     contsocio <-- contsocio + 1
     secuencial <-- enteroacadena(contsocio)
-    segun (secuencial) hacer
+    segun (contsocio) hacer
         0.. 9: secuencial <-- concatenar("000", secuencial)
         10.. 99: secuencial <-- concatenar("00", secuencial)
         100.. 999: secuencial <-- concatenar("0", secuencial)
         1000.. 9999: secuencial <-- secuencial
-    fin segun     
+    finSegun     
 // genero el codigo del socio
-    codigodesocio <-- concatenar(codnom,car(45), codapell,car(45),secuencial)
+    codigodesocio <-- concatenar(codigodesocio, codnom)
+    codigodesocio <-- concatenar(codigodesocio, car(45))
+    codigodesocio <-- concatenar(codigodesocio, codapell)
+    codigodesocio <-- concatenar(codigodesocio, car(45))
+    codigodesocio <-- concatenar(codigodesocio, secuencial)
     mostrar("El codigo del socio es: ",codigodesocio)
 Fin
 //EJECUCION DEL SUBALG. VERIDICACION DEL CORREO.
-Subalgoritmo VerificacionDeCorreo (E: correo: cadena; S: verificacion: booleana)
+Subalgoritmo VerificacionDeCorreo (E: correo: cadena; S: correo)
 Var
     verificacion: booleana
-    i, cantidaddearroba, punto, arroba, tope: entero
+    cantidaddearroba, punto, arroba, tope: entero
 Inicio
-    i <-- 0
-    verificacion <-- F
-    cantidaddearroba <-- 0
-    arroba <-- 0
-    punto-- 0 
-    tope <-- long(correo)
     repetir
-        desde [i <-- 1] hasta [i <-- tope] hacer
-            si (correo[i] = "@") entonces
-                cantidaddearroba < cantidaddearroba + 1
-                punto <-- i + 1
-                arroba <-- i
-                sino
-                    mostrar("ERROR; correo invalido")
-            fin si
-        fin desde
-        si (cantidaddearroba = 1) entonces
-            si (punto) > (arroba) entonces
-                verificacion <-- verdadero
-                sino
-                verificacion <-- falso
-                fin sino
-            fin si
-        fin si
+        verificacion <-- F
+        cantidaddearroba <-- 0
+        arroba <-- 0
+        punto-- 0 
+        tope <-- long(correo)
+        desde i <-- 1 hasta tope hacer
+            
+            Si (correo[i] = ".") entonces
+                Si (cantidaddearroba = 1) entonces
+                    punto <-- punto + 1
+                Sino
+                    //Se encontro un punto antes que una @.
+                    punto <-- punto + 2
+                FinSino
+                FinSi
+            FinSi
+            
+            
+            Si (correo[i] = "@") entonces
+                cantidaddearroba <-- cantidaddearroba + 1
+                
+            finSi
+            
+        finDesde
+        si (cantidaddearroba = 1 y punto = 1) entonces
+            verificacion <-- V;
+            Sino
+            mostrar("Correo incorrecto, re-ingresar")
+            ingresar(correo)
+            punto <-- 0;
+            cantidaddearroba <-- 0;
+        finSi
+        
     hasta(verificacion = V)
     mostrar("correo verificado")
 Fin
@@ -380,7 +403,7 @@ Según (Codigo) hacer
         FinSi
     FinSi
     calcularMulta(multa, ocupacion)
-
+    Sino Mostrar("Código ingresado incorrecto")
 Fin Según
 FIN
 
@@ -432,7 +455,7 @@ Si (Opcion = 1) entonces
                 Sino
                 mostrar("No hay stock")
                 FinSi
-        Default: mostrar("Codigo ingresado no valido")        
+        Sino Mostrar("Codigo ingresado no valido")        
     Fin Según
 FinSi
 
@@ -443,7 +466,7 @@ Si (Opcion = 2) entonces
         "TEC": TecnicoStock <- TecnicoStock + 1
         "INF": InfantilStock <- InfantilStock + 1
         "REF": RefStock <- RefStock + 1
-        Default: mostrar("El codigo ingresado es incorrecto")
+        Sino Mostrar("El codigo ingresado es incorrecto")
     Fin Según
 FinSi
 FIN
