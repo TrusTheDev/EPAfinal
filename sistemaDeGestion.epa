@@ -498,7 +498,7 @@ finRepetir
     enteroAcadena: (anio)
     enteroAcadena: (mes)
     enteroAcadena: (dia)
-
+    enteroAcadena: (digitos)
   //Se muestran los Datos del usuario, la fecha de la operacion, y el codigo generado por la fecha y los digitos ingresados por el usuario
     Mostrar (codigodesocio, nombre, apellido, fecha)
     Mostrar (concatenar (anio, mes, dia, digitos))
