@@ -18,14 +18,11 @@ Algoritmo sistemaGestion
 	
 	//--------------------------------------------------------------------------------------------
 	//Inicio del algoritmo 
-	hora <-- 0
-	min <-- 0
-	
-	acumCatFic <-- 0;
-	acumCatInf <-- 0;
-	acumCatRef <-- 0;
-	acumCatTec <-- 0;
-	diasDeatraso <-- 0;
+	acumCatFic = 0;
+	acumCatInf = 0;
+	acumCatRef = 0;
+	acumCatTec = 0;
+	diasDeatraso = 0;
 	TecnicoStock = -1
 	FiccionStock = -1;
 	InfantilStock = -1;
@@ -79,7 +76,7 @@ Algoritmo sistemaGestion
 				NuevoSocioBiblioteca(nombre, apellido, codigodesocioC,ocupacion,correo,edad,contsocio);
 				generarComprobante();
 			2:
-				ProcesarPrestamo();
+				ProcesarPrestamo(codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock);
 				generarComprobante();
 			3:
 				ProcesarDevoluciones();
@@ -91,7 +88,7 @@ Algoritmo sistemaGestion
 FinAlgoritmo
 
 SubAlgoritmo NuevoSocioBiblioteca(nombre Por Referencia,apellido Por Referencia, codigodesocioC Por Referencia, ocupacion Por Referencia, correo Por Referencia, edad Por Referencia, contsocio Por Referencia)
-	
+	//Descomentar para ingresar los valores
 //	mostrar("Ingrese nombre del socio")
 //	Leer nombre;
 //	mostrar("Ingrese apellido del socio")
@@ -150,32 +147,31 @@ SubAlgoritmo VerificacionDeCorreo(correo Por Referencia)
 	Repetir
 		Para i = 1 Hasta tope Hacer
 	
-		Si(Subcadena(correo, i,i) = ".")
-			Si (cantidaddearroba = 1) Entonces
-				punto = punto + 1;
-				SiNo
-					punto = punto + 2
+			Si(Subcadena(correo, i,i) = ".")
+				Si (cantidaddearroba = 1) Entonces
+					punto = punto + 1;
+					SiNo
+						punto = punto + 2
+					FinSi
 				FinSi
-			FinSi
-
-			Si Subcadena(correo,i,i) = "@" Entonces
-				cantidaddearroba = cantidaddearroba + 1
+				Si Subcadena(correo,i,i) = "@" Entonces
+					cantidaddearroba = cantidaddearroba + 1
 			FinSi
 		FinPara
 	
 		Si cantidaddearroba = 1 y punto = 1 Entonces
 			verificacion = Verdadero
-		SiNo
-		mostrar("Correo incorrecto, re-ingresar")
-		Leer correo
-		punto = 0;
-		cantidaddearroba = 0;
-	FinSi
+			SiNo
+				mostrar("Correo incorrecto, re-ingresar")
+				Leer correo
+				punto = 0;
+				cantidaddearroba = 0;
+		FinSi
 Hasta Que verificacion;
 	
 FinSubAlgoritmo
 
-SubAlgoritmo ProcesarPrestamo
+SubAlgoritmo ProcesarPrestamo (codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres Por Referencia, acumMultas Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia)
 FinSubAlgoritmo
 
 SubAlgoritmo ProcesarDevoluciones
