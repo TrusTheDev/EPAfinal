@@ -28,7 +28,7 @@ Algoritmo sistemaGestion
 	InfantilStock = -1;
 	RefStock = -1;
 	
-//Relleno con valores para que no me jodan en la depuracion comentar en la exposición
+	//Relleno con valores para que no me jodan en la depuracion comentar en la exposición
 	TecnicoStock = 5;
 	FiccionStock = 5;
 	InfantilStock = 5;
@@ -38,6 +38,14 @@ Algoritmo sistemaGestion
 	edad = 18;
 	ocupacion = "Médico";
 	correo = "ivanbordeira2015@hotmail.com";
+	codigodesocioC = "IVA_VIE_0001";
+	acumu_press = 0;
+	acumMultas = 0;
+	acumCatRef = 0;
+	acumCatTec = 0;
+	acumCatInf = 0;
+	acumCatFic = 0;
+	
 	
 	contsocioC = 0;
 	
@@ -76,13 +84,13 @@ Algoritmo sistemaGestion
 				NuevoSocioBiblioteca(nombre, apellido, codigodesocioC,ocupacion,correo,edad,contsocio);
 				generarComprobante();
 			2:
-				ProcesarPrestamo(codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock);
+				procesarPrestamo(codigodesocioC, isbnLibro,codigoLibro, fecha, acumMultas,acumu_press, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatFic,acumCatRef,acumCatTec, acumCatInf);
 				generarComprobante();
 			3:
 				ProcesarDevoluciones();
 				generarComprobante();
-			De Otro Modo:
-				Mostrar "Opcion invalida"
+			Otro:
+				Escribir  "Opcion invalida"
 		Fin Segun
 	FinMientras
 FinAlgoritmo
@@ -171,7 +179,169 @@ Hasta Que verificacion;
 	
 FinSubAlgoritmo
 
-SubAlgoritmo ProcesarPrestamo (codigodesocio, isbnLibro, fecha,dia,mes,anio,acumu_pres Por Referencia, acumMultas Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia)
+SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLibro, fecha, acumMultas Por Referencia,acumu_press Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,acumCatFic Por Referencia, acumCatRef Por Referencia,acumCatTec Por Referencia,acumCatInf Por Referencia)
+	
+	codigodesocioC = Mayusculas(codigodesocioC)
+	
+	//Por si se quiere probar ingresando un codigodesocioC erroneo descomentar y jugar con esta variable
+	//codigodesocioC = "IVA_VIE_9111";
+	Dimension abecedario[26]
+	
+	abecedario[1] <- 'A'
+	abecedario[2] <- 'B'
+	abecedario[3] <- 'C'
+	abecedario[4] <- 'D'
+	abecedario[5] <- 'E'
+	abecedario[6] <- 'F'
+	abecedario[7] <- 'G'
+	abecedario[8] <- 'H'
+	abecedario[9] <- 'I'
+	abecedario[10] <- 'J'
+	abecedario[11] <- 'K'
+	abecedario[12] <- 'L'
+	abecedario[13] <- 'M'
+	abecedario[14] <- 'N'
+	abecedario[15] <- 'O'
+	abecedario[16] <- 'P'
+	abecedario[17] <- 'Q'
+	abecedario[18] <- 'R'
+	abecedario[19] <- 'S'
+	abecedario[20] <- 'T'
+	abecedario[21] <- 'U'
+	abecedario[22] <- 'V'
+	abecedario[23] <- 'W'
+	abecedario[24] <- 'X'
+	abecedario[25] <- 'Y'
+	abecedario[26] <- 'Z'
+	
+	Dimension numeros[10]
+	
+	numeros[1] <- '0'
+	numeros[2] <- '1'
+	numeros[3] <- '2'
+	numeros[4] <- '3'
+	numeros[5] <- '4'
+	numeros[6] <- '5'
+	numeros[7] <- '6'
+	numeros[8] <- '7'
+	numeros[9] <- '8'
+	numeros[10] <- '9'
+	
+	
+	Repetir
+		contMayus = 0;
+		contNum = 0;
+		tiene12Car = falso;
+		tiene2Guion = falso;
+		Escribir codigodesocioC
+		esValido = falso;
+		Si (Longitud(codigodesocioC) = 12)
+			tiene12Car = Verdadero;
+		FinSi
+		Si (Subcadena(codigodesocioC, 4, 4) = "_" y Subcadena(codigodesocioC, 8,8) = "_")
+			tiene2Guion = Verdadero;
+		FinSi
+		
+		Para i<- 1 hasta 3 Hacer
+			Para j = 1 hasta 26 Hacer
+				Si(Subcadena(codigodesocioC, i,i) = abecedario[j])
+					contMayus = contMayus + 1;
+				FinSi
+			FinPara
+		FinPara
+		
+		Para i<- 5 hasta 7 Hacer
+			Para j = 1 hasta 26 Hacer
+				Si(Subcadena(codigodesocioC, i,i) = abecedario[j])
+					contMayus = contMayus + 1;
+				FinSi
+			FinPara
+		FinPara
+		
+		Para i <- 9 hasta 12 Hacer
+			Para j = 1 hasta 10 Hacer
+				Si (Subcadena(codigodesocioC, i, i) = numeros[j] )
+					contNum = contNum + 1;
+				FinSi
+			FinPara
+		FinPara
+		
+		Si (contMayus = 6 y contNum = 4 y tiene12Car y tiene2Guion) Entonces
+			esValido = Verdadero;
+		FinSi
+
+		Si (esValido = Falso)
+			Escribir "codigo de socio incorrecto, re-ingresar";
+			Leer codigodesocioC
+		FinSi
+	
+	Hasta Que esValido = Verdadero;
+	
+	Si (acumu_press >= 3)
+		Mostrar("Tiene 3 o más libros prestado, no puede pedir más")
+		esValido = falso;
+	FinSi
+	
+	Si (acumMultas >= 1) Entonces
+		Mostrar("Usted tiene multas pendientes no puede pedir más libros")
+		esValido = falso;
+	FinSi
+
+	Si (esValido)
+		
+		Repetir
+			Mostrar("Ingrese código del libro: ")
+			Leer codigoLibro
+			codigoLibro = Mayusculas(codigoLibro);
+			
+			Segun codigoLibro
+				"INF": 
+					acumCatInf = acumCatInf + 1;
+				"FIC":
+					acumCatFic = acumCatFic + 1;
+				"REF":
+					acumCatRef = acumCatRef + 1;
+				"TEC":
+					acumCatTec = acumCatTec + 1;
+			FinSegun
+			
+		Hasta Que codigoLibro = "INF" O codigoLibro = "FIC" O codigoLibro = "REF" O codigoLibro = "TEC"
+		
+		
+		Repetir
+			Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
+			Leer isbnLibro;
+			esNumerico = verdadero
+			contNum = 0;
+			Para i <- 1 hasta Longitud(isbnLibro) Hacer
+				Para j = 1 hasta 10 Hacer
+					Si (Subcadena(isbnLibro, i, i) = numeros[j] )
+						contNum = contNum + 1;
+					FinSi
+				FinPara
+			FinPara
+            si contNum = Longitud(isbnLibro) entonces
+                esNumerico = Verdadero;
+			SiNo
+				Mostrar("ISBN inválido. Intente nuevamente")
+				esNumerico = Falso;
+            FinSi
+		Hasta Que esNumerico = Verdadero;
+		
+			Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock, 1, codigoLibro);
+			fechaC = FechaActual();
+			Mostrar ("-------Préstamo registrado-------")
+			Mostrar ("Código de socio: " + codigodeSocioC)
+			Mostrar ("Código del libro solicitado: " + codigoLibro)
+			Mostrar ("ISBN del libro solicitado: " + isbnLibro);
+			mostrar ("Fecha del préstamo: " + ConvertirATexto(fechaC))
+			acumu_pres <-- acumu_pres + 1
+		FinSi
+FinSubAlgoritmo
+
+	
+SubAlgoritmo Stock(FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,Opcion, codigoLibro)
+	
 FinSubAlgoritmo
 
 SubAlgoritmo ProcesarDevoluciones

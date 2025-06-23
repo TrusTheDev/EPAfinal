@@ -114,9 +114,9 @@ Inicio
         tope <-- long(nombre)
         desde i <-- 1 hasta tope hacer
             segun ord(nombre[i]) hacer
-                65.. 90: Verificacion <-- falso;
+                65.. 90: Verificacion <-- verdadero;
                 97.. 122: mostrar("ingrese su nombre en mayusculas")
-                    Verificacion <-- verdadero;
+                    Verificacion <-- falso;
                     ingresar(nombre)
                     i <-- tope;
             finSegun
@@ -134,9 +134,9 @@ Inicio
         desde i <-- 1 hasta tope hacer
             tope <-- long(apellido)
             segun ord(apellido[i]) hacer
-                65.. 90: mostrar Verificacion <-- falso;
+                65.. 90: mostrar Verificacion <-- verdadero;
                 97.. 122: mostrar("ingrese su nombre en mayusculas")
-                    Verificacion <-- verdadero;
+                    Verificacion <-- falso;
                     ingresar(apellido)
                     i <-- tope;
             finSegun
@@ -209,7 +209,7 @@ Fin
 
 //Opción 2 procesar prestamo
 
-subalgoritmo ProcesarPrestamo (E: codigodesocio,isbnLibro,fecha, codigoLibro: cadena; dia, mes, anio, acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero; S: dia, mes, anio, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;)
+subalgoritmo ProcesarPrestamo (E: codigodesocio,isbnLibro,fecha, codigoLibro: cadena; dia, mes, anio, acumu_pres, acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero; S: isbnLibro,dia, mes, anio, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatRef, acumCatInf, acumCatTec, acumCatFic: entero;)
 VAR
 esValido, esNumerico: logico
 INICIO
@@ -222,13 +222,22 @@ Repetir
     Si (codigodeSocio[4] <> "-" O codigodesocio[8] <> "-") entonces
         esValido <-- falso
     FinSi
-    Desde i <-- 1 hasta 12 hacer
-        Si (i <> 4 Y i <> 8 ) entonces
-            Si (codigodeSocio[i] < 0 O codigodeSocio[i] > 9) entonces
-                esValido <-- falso
-            FinSi
-        FinSi
+    Desde i <- 1 hasta 3 hacer
+        Según (ord(codigodeSocio[i])) hacer
+         65..90: esValido = verdadero;
+         Sino: esValido = falso;
+         i = 3;
+        FinSegún
     FinDesde
+    
+    Desde i <- 5 hasta 7 hacer
+        Según (ord(codigodeSocio[i])) hacer
+            65..90: esValido = Verdadero;
+            Sino: esValido = falso;
+            i = 7;
+        FinSegún
+    FinDesde
+
     Si (esValido = falso) entonces
         Mostrar("Código de socio inválido")
         Mostrar ("Ingrese código de socio: ")
@@ -238,6 +247,7 @@ hasta (esValido = verdadero)
 // Validar que el socio no tenga multas pendientes y/o más de 3 libros prestados //
 Si (acumu_pres >= 3) entonces
     Mostrar("Tienes 3 o más libros prestados, no puedes pedir más")
+    esValido = falso;
 FinSi
 Si (acumMultas >= 1) entonces
     Mostrar("Usted tiene multas pendientes, no puede pedir más libros prestados ")
@@ -255,10 +265,14 @@ Si (esValido) entonces
         Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
         Ingresar(isbnLibro)
         esNumerico <-- verdadero
+
         Desde i <-- 1 hasta long(isbnLibro) hacer
-            si isbnLibro[i] < 0 O isbnLibro[i] > 9 entonces
-                esNumerico <-- falso
-            FinSi
+            
+            Según (isbnLibro[i]) hacer
+                0..9: esNumerico = falso;
+                Sino: esNumerico = falso;
+                i = long(isbnLibro);
+            FinSegún
         FinDesde
         Si esNumerico = falso entonces
             Mostrar("ISBN inválido. Intente nuevamente")
@@ -267,7 +281,7 @@ Si (esValido) entonces
     // Verificar el stock del libro //
     //Utilizar E/S se puede hacer eso para evitar escribir tantas variables, unidad 5
     //Funciona cuando lo creas desde el subalgoritmo
-    Stock(E: FiccionStock, TecnicoStock, InfantilStock, RefStock: entero S: FiccionStock, TecnicoStock, InfantilStock, RefStock: entero)
+    Stock(E: FiccionStock, TecnicoStock, InfantilStock, RefStock, 1, codigoLibro: entero S: FiccionStock, TecnicoStock, InfantilStock, RefStock: entero)
     // Procesar préstamo //
     obtenerFechaEntero (dia, mes, anio)
     obtenerFechaCadena (dia, mes, anio, fecha)
