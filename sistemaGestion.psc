@@ -105,6 +105,9 @@ Algoritmo sistemaGestion
 			3:
 				ProcesarDevoluciones(ocupacion,codigoLibro,dia,mes,año, acumMultas, FiccionStock, TecnicoStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas);
 				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC);
+			4:
+				reporteEstadistico
+				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC);
 			Otro:
 				Escribir  "Opcion invalida"
 		Fin Segun
@@ -543,6 +546,8 @@ SubAlgoritmo generarComprobante (codigodesocioC, nombre, apellido, fecha, dia, m
 			Escribir "Se procesó un prestamo"
 		3: 
 			Escribir "Se proceso una devolución"
+		4: 
+			Escribir "Se generaron reportes estadisticos"
 	FinSegun
 	
 	hora = Trunc(HoraActual()/10000)

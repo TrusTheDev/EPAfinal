@@ -67,9 +67,10 @@ mientras (opcion <> 0) hacer
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
         3: ProcesarDevoluciones(/*entrada*/ acumMultas, FiccionStock, TecnicoStock, InfantilStock, RefStock, dia, diasDePrestamo, /*salida*/acumMultas, FiccionStock, TecnicoStock, InfantilStock)
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
+        4: reportes_estadisticos();
+        generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
     Sino mostrar("Opción invalida")
     Fin Según
-    reportes_estadisticos();
 fin mientras
 FIN
 
@@ -541,6 +542,7 @@ Segun (opcion) hacer
     1: Mostrar ("Se esta haciendo un socio") 
     2: Mostrar ("Se proceso un prestamo")
     3: Mostrar ("Se proceso una devolucion")
+    4: Mostrar ("Se generaron procesos estadisticos")
     Fin Segun
 
 //Dependiendo de la operacion que se hizo estimamos el tiempo que pudo tardar para acumularlo a la hora
