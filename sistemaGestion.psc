@@ -61,13 +61,7 @@ Algoritmo sistemaGestion
 	//mes = Trunc(((FechaActual() - año*10000)/100))
 	//dia = Trunc(FechaActual() - (año*10000 + mes*100))
 	
-	
-
-	
-
-	
 	contsocioC = 0;
-	
 	opcionP = -1
 	
 	// aca iniciaria
@@ -103,18 +97,19 @@ Algoritmo sistemaGestion
 			0: 
 			1: 
 				NuevoSocioBiblioteca(nombre, apellido, codigodesocioC,ocupacion,correo,edad,contsocio);
-				generarComprobante();
+				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC);
 			2:
 				procesarPrestamo(codigodesocioC, isbnLibro,codigoLibro, fecha, acumMultas,acumu_press, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatFic,acumCatRef,acumCatTec, acumCatInf);
-				generarComprobante();
+				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC);
 				Escribir codigoLibro
 			3:
 				ProcesarDevoluciones(ocupacion,codigoLibro,dia,mes,año, acumMultas, FiccionStock, TecnicoStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas);
-				generarComprobante();
+				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC);
 			Otro:
 				Escribir  "Opcion invalida"
 		Fin Segun
 	FinMientras
+	
 FinAlgoritmo
 
 SubAlgoritmo NuevoSocioBiblioteca(nombre Por Referencia,apellido Por Referencia, codigodesocioC Por Referencia, ocupacion Por Referencia, correo Por Referencia, edad Por Referencia, contsocio Por Referencia)
@@ -487,8 +482,88 @@ SubAlgoritmo calcularMulta(Codigo, totalMultasEstudiantes Por Referencia, totalM
 	
 FinSubAlgoritmo
 
-SubAlgoritmo generarComprobante
+SubAlgoritmo generarComprobante (codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionC)
+	digitos = "";
+	cadenaValida = Verdadero;
+	contDigitos = 0;
+	Dimension numeros[10]
 	
+	numeros[1] <- '0'
+	numeros[2] <- '1'
+	numeros[3] <- '2'
+	numeros[4] <- '3'
+	numeros[5] <- '4'
+	numeros[6] <- '5'
+	numeros[7] <- '6'
+	numeros[8] <- '7'
+	numeros[9] <- '8'
+	numeros[10] <- '9'
+	
+	Mientras cadenaValida
+		Escribir "Ingrese un número de 4 digitos"
+		Leer digitos
+		Para i<-1 Hasta Longitud(digitos) Hacer
+			Para j<-1 hasta 10 Hacer
+				Si (Subcadena(digitos,i,i) = numeros[j])
+					contDigitos = contDigitos + 1
+				FinSi
+			FinPara
+		FinPara
+		
+		Si (contDigitos = 4)
+			cadenaValida = falso;
+		SiNo
+			contDigitos = 0;
+		FinSi
+		
+	FinMientras
+	añoC = ConvertirATexto(año)
+	mesC = ConvertirATexto(mes);
+	diaC = ConvertirATexto(dia);
+	
+
+	Si (mes < 10)
+		mesC = concatenar('0' ,mesC)
+	FinSi
+	
+	Si dia < 10
+		diaC = Concatenar('0', diaC)
+	FinSi
+	
+	comprobante = Concatenar(comprobante, añoC)
+	comprobante = Concatenar(comprobante, mesC)
+	comprobante = Concatenar(comprobante, diaC)
+	comprobante = Concatenar(comprobante, digitos)
+	Escribir codigodesocioC + " " + nombre + " " + apellido +" " + añoC+ "/" + mesC "/" + diaC
+	Escribir comprobante
+	
+	Segun opcion
+		1: 
+			Escribir "Se está haciendo un socio"
+		2: 
+			Escribir "Se procesó un prestamo"
+		3: 
+			Escribir "Se proceso una devolución"
+	FinSegun
+	
+	hora = Trunc(HoraActual()/10000)
+	minuto = Trunc(((HoraActual() - hora*10000)/100))
+	second = HoraActual() - (Hora * 10000 + minuto * 100)
+	
+	horaC = ConvertirATexto(hora)
+	minutoC = ConvertirATexto(minuto)
+	segundoC = ConvertirATexto(second)
+	Si hora < 10
+		horaC = Concatenar("0", horaC)
+	FinSi
+	Si minuto < 10
+		minutoC = Concatenar( "0", minutoC)
+	FinSi
+	Si second < 10
+		segundoC = Concatenar("0", segundoC)
+	FinSi
+	
+	Escribir "Hora de la operación" + horaC + ":" + minutoC + ":" + segundoC
 FinSubAlgoritmo
 
 SubAlgoritmo reporteEstadistico

@@ -499,28 +499,41 @@ FIN
 
  Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
   
-VAR 
+VAR
+  comprobante: cadena
+  cadenaValida: booleano
   digitos: entero
 Inicio
-  digitos <-- 0
+  digitos <-- "    "
+  cadenaValida = verdadero;
+  contDigitos = 0;
 
   //Se le solicita al usuario que ingrese 4 digitos para el numero de comprobante
  
-    Repetir
-        Mostrar ("Ingrese un numero de 4 digitos")
-        ingresar (digitos)
-    hasta
-        (digitos >= 1000 y <= 9999)
+    Mientras cadenaValida
+            Desde i <-- 1 hasta 4 hacer
+                Mostrar("Ingrese 4 digitos consecutivos uno a la vez")
+                ingresar(digitos[i])
+                Segun digitos[i]
+                    48..57: contDigitos <- contDigitos + 1
+                FinSegun
+            FinDesde
+            Si (digitos = 4)
+                cadenaValida = falso;
+            finSi
+    FinMientras
 
-finRepetir
-
-    enteroAcadena: (anio)
-    enteroAcadena: (mes)
-    enteroAcadena: (dia)
-    enteroAcadena: (digitos)
+    anio <-- enteroAcadena(anio)
+    mes <-- enteroAcadena(mes)
+    dia <-- enteroAcadena(dia)
+    comprobante <- ""
   //Se muestran los Datos del usuario, la fecha de la operacion, y el codigo generado por la fecha y los digitos ingresados por el usuario
-    Mostrar (codigodesocio, nombre, apellido, fecha)
-    Mostrar (concatenar (anio, mes, dia, digitos))
+    Mostrar(codigodesocioC," ",nombre, " ", apellido," ", anio, "/", mes "/", dia)
+    comprobante <-- concatenar(comprobante, anio)
+    comprobante <-- concatenar(comprobante, mes)
+    comprobante <-- concatenar(comprobante, dia)
+    comprobante <-- concatenar(comprobante, digitos)
+    Mostrar (comprobante)
   //aun falta agregar la hora
 
 //Dependiendo que opcion se selecciono al inicio, el comprobante muestra que operacion se hizo
