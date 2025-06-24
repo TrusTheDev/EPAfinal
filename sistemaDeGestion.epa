@@ -363,7 +363,7 @@ Inicio
 FIN
 
 //Opción 3 Procesar devoluciones
-Subalgoritmo procesarDevoluciones (E: ocupacion, Codigo: cadena; fecha, DiaDeHoy,acumMultas,FiccionStock, TecnicoStock, InfantilStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas: entero; S: totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,diasDeatraso, acumMultas, FiccionStock, TecnicoStock, InfantilStock: entero)
+Subalgoritmo procesarDevoluciones (E: ocupacion, Codigo: cadena; socioSinAtraso,fecha, DiaDeHoy,acumMultas,FiccionStock, TecnicoStock, InfantilStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas: entero; S: socioSinAtraso,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,diasDeatraso, acumMultas, FiccionStock, TecnicoStock, InfantilStock: entero)
 CONST
 lapsoDeDias = abs(DiaDeHoy - Fecha)
 VAR
@@ -387,7 +387,10 @@ Segun (codigo) Hacer
 						multa = 1200 * lapsoDeDias
 					FinSi
 				FinSi
+            Sino
+                socioSinAtraso <-- socioSinAtraso + 1
 			FinSi
+            
 			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo")
 			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
 		"TEC": Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"TEC");
@@ -400,6 +403,8 @@ Segun (codigo) Hacer
 						multa = 1200 * lapsoDeDias
 					FinSi
 				FinSi
+                Sino
+                socioSinAtraso <-- socioSinAtraso + 1
 			FinSi
 			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo") 
 			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
@@ -413,6 +418,8 @@ Segun (codigo) Hacer
 						multa = 1200 * lapsoDeDias
 					FinSi
 				FinSi
+                Sino
+                socioSinAtraso <-- socioSinAtraso + 1
 			FinSi
 			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo") 
 			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
@@ -426,6 +433,8 @@ Segun (codigo) Hacer
 						multa = 1200 * lapsoDeDias
 					FinSi
 				FinSi
+                Sino
+                socioSinAtraso <-- socioSinAtraso + 1
 			FinSi
 			mostrar("Entrego el libro a " + lapsoDeDias + "dias del día de prestamo") 
 			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
