@@ -1,6 +1,6 @@
 ALGORITMO algoritmoPrincipal;
 VAR
-
+i: entero
 //Lógica para agregar un socio
 nombre, apellido, codigodesocio, ocupacion, correo: cadena;
 edad, contsocio: entero;
@@ -507,12 +507,13 @@ FIN
 
 // Generar comprobante por cada opción elegida
 
- Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
+ Subalgoritmo generarComprobante (E: codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min, i)
   
 VAR
   comprobante: cadena
   cadenaValida: booleano
-  digitos: entero
+  digitos: cadena
+  contDigitos: entero
 Inicio
   digitos <-- "    "
   cadenaValida = verdadero;
@@ -520,15 +521,15 @@ Inicio
 
   //Se le solicita al usuario que ingrese 4 digitos para el numero de comprobante
  
-    Mientras cadenaValida
+    Mientras (cadenaValida = verdadero)
             Desde i <-- 1 hasta 4 hacer
                 Mostrar("Ingrese 4 digitos consecutivos uno a la vez")
                 ingresar(digitos[i])
-                Segun digitos[i]
+                Segun ord(digitos[i])
                     48..57: contDigitos <- contDigitos + 1
                 FinSegun
             FinDesde
-            Si (digitos = 4)
+            Si (contdigitos = 4)
                 cadenaValida = falso;
             finSi
     FinMientras
@@ -573,11 +574,11 @@ FinSi
 
 // Esto es para que se vea 00:00 en caso de que hora o min tengan un numero menor a 10
 Si (min < 10) hacer
-enteroAcadena (min)
+min <-- enteroAcadena (min)
 concatenar ("0",min)
 FinSi
 Si (hora < 10) hacer
-enteroAcadena (hora)
+hora <-- enteroAcadena (hora)
 concatenar ("0",hora)
 FinSi
 
