@@ -69,6 +69,7 @@ mientras (opcion <> 0) hacer
         generarComprobante (/*entrada*/codigodesocio, nombre, apellido, fecha, dia, mes, anio, opcion, hora,min)
     Sino mostrar("Opción invalida")
     Fin Según
+    reportes_estadisticos();
 fin mientras
 FIN
 
@@ -123,16 +124,15 @@ Inicio
         finDesde
     Fin Mientras
     mostrar(nombre)
-    tope <-- 3
+    tope <-- 2
     desde i <-- 1 hasta tope hacer
         codnom <-- concatenar(codnom,nombre[i])
     fin desde
 // gnenera el codigo del apellido
-    
     Verificacion <- verdadero
         Mientras (Verificacion) hacer
+        tope <-- long(apellido)
         desde i <-- 1 hasta tope hacer
-            tope <-- long(apellido)
             segun ord(apellido[i]) hacer
                 65.. 90: mostrar Verificacion <-- verdadero;
                 97.. 122: mostrar("ingrese su nombre en mayusculas")
@@ -156,9 +156,9 @@ Inicio
         1000.. 9999: secuencial <-- secuencial
     finSegun     
 // genero el codigo del socio
-    codigodesocio <-- concatenar(codigodesocio, codnom)
-    codigodesocio <-- concatenar(codigodesocio, car(45))
     codigodesocio <-- concatenar(codigodesocio, codapell)
+    codigodesocio <-- concatenar(codigodesocio, car(45))
+    codigodesocio <-- concatenar(codigodesocio, codnom)
     codigodesocio <-- concatenar(codigodesocio, car(45))
     codigodesocio <-- concatenar(codigodesocio, secuencial)
     mostrar("El codigo del socio es: ",codigodesocio)

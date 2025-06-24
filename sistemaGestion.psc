@@ -141,7 +141,7 @@ FinSubAlgoritmo
 SubAlgoritmo  CodigoDeSocio(nombre, apellido, codigodesocioC Por Referencia, contsocioC Por Referencia)
 	nombre = Mayusculas(nombre);
 	apellido = Mayusculas(apellido);
-	codigodesocioC = Subcadena(nombre, 1,1) + Subcadena(nombre, 2,2)+ Subcadena(nombre, 3,3) + "_" + Subcadena(apellido, 1,1) + Subcadena(apellido, 2,2) + Subcadena(apellido, 3,3)+ "_";
+	codigodesocioC =  Subcadena(apellido, 1,1) + Subcadena(apellido, 2,2) + Subcadena(apellido, 3,3) + "_" + Subcadena(nombre, 1,1) + Subcadena(nombre, 2,2)+ "_";
 	contsocioC = contsocioC + 1;
 	
 	Si (contsocioC < 10)
@@ -241,17 +241,16 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 	numeros[9] <- '8'
 	numeros[10] <- '9'
 	
-	
 	Repetir
 		contMayus = 0;
 		contNum = 0;
 		tiene12Car = falso;
 		tiene2Guion = falso;
 		esValido = falso;
-		Si (Longitud(codigodesocioC) = 12)
+		Si (Longitud(codigodesocioC) = 11)
 			tiene12Car = Verdadero;
 		FinSi
-		Si (Subcadena(codigodesocioC, 4, 4) = "_" y Subcadena(codigodesocioC, 8,8) = "_")
+		Si (Subcadena(codigodesocioC, 4, 4) = "_" y Subcadena(codigodesocioC, 7,7) = "_")
 			tiene2Guion = Verdadero;
 		FinSi
 		
@@ -263,7 +262,7 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 			FinPara
 		FinPara
 		
-		Para i<- 5 hasta 7 Hacer
+		Para i<- 5 hasta 6 Hacer
 			Para j = 1 hasta 26 Hacer
 				Si(Subcadena(codigodesocioC, i,i) = abecedario[j])
 					contMayus = contMayus + 1;
@@ -271,7 +270,7 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 			FinPara
 		FinPara
 		
-		Para i <- 9 hasta 12 Hacer
+		Para i <- 8 hasta 11 Hacer
 			Para j = 1 hasta 10 Hacer
 				Si (Subcadena(codigodesocioC, i, i) = numeros[j] )
 					contNum = contNum + 1;
@@ -279,7 +278,7 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 			FinPara
 		FinPara
 		
-		Si (contMayus = 6 y contNum = 4 y tiene12Car y tiene2Guion) Entonces
+		Si (contMayus = 5 y contNum = 4 y tiene12Car y tiene2Guion) Entonces
 			esValido = Verdadero;
 		FinSi
 
