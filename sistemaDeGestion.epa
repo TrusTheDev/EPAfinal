@@ -362,72 +362,77 @@ Inicio
 FIN
 
 //Opción 3 Procesar devoluciones
-Subalgoritmo procesarDevoluciones (E: ocupacion, Codigo: cadena; diasDeatraso,DiaDeHoy,acumMultas,FiccionStock, TecnicoStock, InfantilStock, RefStock, Fecha: entero; S: diasDeatraso, acumMultas, FiccionStock, TecnicoStock, InfantilStock: entero)
+Subalgoritmo procesarDevoluciones (E: ocupacion, Codigo: cadena; fecha, DiaDeHoy,acumMultas,FiccionStock, TecnicoStock, InfantilStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas: entero; S: totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,diasDeatraso, acumMultas, FiccionStock, TecnicoStock, InfantilStock: entero)
 CONST
 lapsoDeDias = abs(DiaDeHoy - Fecha)
 VAR
 multa: (real);
 INICIO
+
+
+
+
 diasDeatraso <-- (diasDeatraso + lapsoDeDias)
 multa <- 0
 
-Según (Codigo) hacer
-"FIC": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"FIC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
-    Si (lapsoDeDias > 15 y lapsoDeDias <= 18) entonces
-        acumMultas <-- acumMultas + 1
-        multa <- multa + 500
-        Si (lapsoDeDias > 18 y lapsoDeDias <= 25) entonces
-            multa <- multa + 800
-            Si (lapsoDeDias > 25) entonces
-                multa <- multa + 1200
-            FinSi
-        FinSi
-    FinSi
-    calcularMulta(multa, ocupacion)
-
-"TEC": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"TEC", FiccionStock, TecnicoStock, InfantilStock, RefStock)
-    Si (lapsoDeDias > 7 y lapsoDeDias <= 10) entonces
-        acumMultas <-- acumMultas + 1
-        multa <- multa + 500
-        Si (lapsoDeDias > 10 y lapsoDeDias <= 17) entonces
-            multa <- multa + 800
-            Si (lapsoDeDias > 17) entonces
-                multa <- multa + 1200
-            FinSi
-        FinSi
-    FinSi
-    calcularMulta(multa, ocupacion)
-"INF": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"INF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
-    Si (lapsoDeDias > 21 y lapsoDeDias <= 24) entonces
-        acumMultas <-- acumMultas + 1
-        multa <- multa + 500
-        Si (lapsoDeDias > 24 y lapsoDeDias <= 31) entonces
-        multa <- multa + 800
-            Si (lapsoDeDias > 31) entonces
-                multa <- multa + 1200
-            FinSi
-        FinSi
-    FinSi
-    calcularMulta(multa, ocupacion)
-
-"REF": Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock,2,"REF", FiccionStock, TecnicoStock, InfantilStock, RefStock)
-    Si (lapsoDeDias > 0 y lapsoDeDias <= 3) entonces
-        acumMultas <-- acumMultas + 1
-        multa <- multa + 500
-        Si (lapsoDeDias > 3 y lapsoDeDias <= 7) entonces
-        multa <- multa + 800
-            Si (lapsoDeDias > 7) entonces
-                multa <- multa + 1200
-            FinSi
-        FinSi
-    FinSi
-    calcularMulta(multa, ocupacion)
-    Sino Mostrar("Código ingresado incorrecto")
-Fin Según
+Segun (codigo) Hacer
+		"FIC": Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"FIC");
+			acumMultas = acumMultas + 1
+			Si lapsoDeDias > 15 
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 18 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 25
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo")
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"TEC": Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"TEC");
+			acumMultas = acumMultas + 1
+			Si lapsoDeDias > 7 
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 10 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 17
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo") 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"INF": Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"INF");
+			acumMultas = acumMultas + 1
+			Si lapsoDeDias > 21 
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 24 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 31
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			mostrar("Entrego el libro a " + lapsoDeDias + " dias del día de prestamo") 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"REF": Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"REF");
+			acumMultas = acumMultas + 1
+			Si lapsoDeDias > 0 
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 3 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 7
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			mostrar("Entrego el libro a " + lapsoDeDias + "dias del día de prestamo") 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+FinSegun
 FIN
 
 //Calculo de la multa aplicando ocupación
-Subalgoritmo calcularMulta(E:multa: entero, ocupacion: cadena;)
+Subalgoritmo calcularMulta(E:Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa: entero, ocupacion: cadena; S: totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas)
 CONST
 multaDefault = multa
 multaEstudiante = (50/100)*multa 
@@ -435,16 +440,16 @@ multaDocente = (70/100)*multa
 
 INICIO
 
-Si(ocupacion = "Estudiante" o ocupacion = "Docente") hacer
-    Según (ocupacion) hacer
+Segun (ocupacion) hacer
     "Estudiante": mostrar("Tiene una multa de ", multaEstudiante;)
-    "Docente": mostrar("Tiene una multa de ", multa /)
-    Fin Según
-FinSi
-
+        totalMultasEstudiantes <-- totalMultasEstudiantes + multaEstudiante;
+    "Docente": mostrar("Tiene una multa de ", multaDocente)
+        totalMultasDocentes <-- totalMultasDocentes + multaDocente;
 Sino
-    Mostrar("Tiene una multa de ", multaDefault)
-FinSino
+    mostrar("Tiene una multa de ", multaDefault)
+        totalMultasRegulares <- totalMultasRegulares + multaDefault;
+FinSegún
+totalMultas <-- totalMultas + totalMultasEstudiantes + totalMultasDocentes + totalMultasRegulares; 
 FIN
 
 //Stock, utilizado en Procesar prestamo y devoluciones

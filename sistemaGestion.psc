@@ -39,17 +39,38 @@ Algoritmo sistemaGestion
 	ocupacion = "Médico";
 	correo = "ivanbordeira2015@hotmail.com";
 	codigodesocioC = "IVA_VIE_0001";
+
+
+	//Jugar con estos números para reportes estadisticos
+	totalMultasEstudiantes = 0
+	totalMultasDocentes = 0
+	totalMultasRegulares = 0
+	totalMultas = 0
 	acumu_press = 0;
 	acumMultas = 0;
 	acumCatRef = 0;
 	acumCatTec = 0;
 	acumCatInf = 0;
 	acumCatFic = 0;
+	//Seria la fecha de mañana
+	año = 2025
+	mes = 7
+	dia = 29
+	// Dejarlo descomentado SOLO en úso real
+	//año = Trunc(FechaActual()/10000)
+	//mes = Trunc(((FechaActual() - año*10000)/100))
+	//dia = Trunc(FechaActual() - (año*10000 + mes*100))
 	
+	
+
+	
+
 	
 	contsocioC = 0;
 	
 	opcionP = -1
+	
+	// aca iniciaria
 	
 	Mientras TecnicoStock < 0 Hacer
 		Escribir "Ingresar la cantidad de TecnicoStock";
@@ -86,8 +107,9 @@ Algoritmo sistemaGestion
 			2:
 				procesarPrestamo(codigodesocioC, isbnLibro,codigoLibro, fecha, acumMultas,acumu_press, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatFic,acumCatRef,acumCatTec, acumCatInf);
 				generarComprobante();
+				Escribir codigoLibro
 			3:
-				ProcesarDevoluciones();
+				ProcesarDevoluciones(ocupacion,codigoLibro,dia,mes,año, acumMultas, FiccionStock, TecnicoStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas);
 				generarComprobante();
 			Otro:
 				Escribir  "Opcion invalida"
@@ -179,12 +201,9 @@ Hasta Que verificacion;
 	
 FinSubAlgoritmo
 
-SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLibro, fecha, acumMultas Por Referencia,acumu_press Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,acumCatFic Por Referencia, acumCatRef Por Referencia,acumCatTec Por Referencia,acumCatInf Por Referencia)
+SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLibro Por Referencia, fecha, acumMultas Por Referencia,acumu_press Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,acumCatFic Por Referencia, acumCatRef Por Referencia,acumCatTec Por Referencia,acumCatInf Por Referencia)
 	
 	codigodesocioC = Mayusculas(codigodesocioC)
-	
-	//Por si se quiere probar ingresando un codigodesocioC erroneo descomentar y jugar con esta variable
-	//codigodesocioC = "IVA_VIE_9111";
 	Dimension abecedario[26]
 	
 	abecedario[1] <- 'A'
@@ -233,7 +252,6 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 		contNum = 0;
 		tiene12Car = falso;
 		tiene2Guion = falso;
-		Escribir codigodesocioC
 		esValido = falso;
 		Si (Longitud(codigodesocioC) = 12)
 			tiene12Car = Verdadero;
@@ -327,30 +345,281 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 				esNumerico = Falso;
             FinSi
 		Hasta Que esNumerico = Verdadero;
-		
 			Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock, 1, codigoLibro);
-			fechaC = FechaActual();
+			//año, mes y dia deberian ser entradas, pero no vamos a esperar un día para ver si el programa funciona.
+			año = Trunc(FechaActual()/10000)
+			mes = Trunc(((FechaActual() - año*10000)/100))
+			dia = Trunc(FechaActual() - (año*10000 + mes*100))
 			Mostrar ("-------Préstamo registrado-------")
 			Mostrar ("Código de socio: " + codigodeSocioC)
 			Mostrar ("Código del libro solicitado: " + codigoLibro)
 			Mostrar ("ISBN del libro solicitado: " + isbnLibro);
-			mostrar ("Fecha del préstamo: " + ConvertirATexto(fechaC))
+			mostrar ("Fecha del préstamo: " + ConvertirATexto(año) + "/" + ConvertirATexto(mes) + "/"+ ConvertirATexto(dia))
 			acumu_pres <-- acumu_pres + 1
 		FinSi
 FinSubAlgoritmo
 
 	
-SubAlgoritmo Stock(FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,Opcion, codigoLibro)
+SubAlgoritmo Stock(FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,opcionC, codigo)
+	Si (opcionC = 1)
+		Segun codigo
+			"FIC":  Si (FiccionStock <> 0) entonces
+					FiccionStock <- FiccionStock - 1
+                Sino 
+					Mostrar("No hay stock")
+                FinSi
+			"TEC": Si (TecnicoStock <> 0) entonces
+					TecnicoStock <- TecnicoStock - 1
+                Sino 
+					Mostrar("No hay stock")
+                FinSi
+			"INF": Si (InfantilStock <> 0) entonces
+					InfantilStock <- InfantilStock - 1
+                Sino 
+					Mostrar("No hay stock")
+                FinSi
+			"REF": Si (RefStock <> 0) entonces
+					RefStock <- RefStock - 1
+                Sino
+					mostrar("No hay stock")
+                FinSi
+			De Otro Modo:
+				Mostrar("Codigo ingresado no valido")       
+		FinSegun
+	FinSi
+	
+	Si(opcionC = 2)
+		Según (Codigo) hacer
+			"FIC": FiccionStock <- FiccionStock + 1
+			"TEC": TecnicoStock <- TecnicoStock + 1
+			"INF": InfantilStock <- InfantilStock + 1
+			"REF": RefStock <- RefStock + 1
+			De Otro Modo: 
+				Mostrar("El codigo ingresado es incorrecto")
+		Fin Según
+	FinSi
 	
 FinSubAlgoritmo
 
-SubAlgoritmo ProcesarDevoluciones
+SubAlgoritmo ProcesarDevoluciones(ocupacion,codigo, dia,mes,año,acumMultas Por Referencia,FiccionStock Por Referencia,TecnicoStock Por Referencia,RefStock Por Referencia, totalMultasEstudiantes Por Referencia, totalMultasDocentes Por Referencia, totalMultasRegulares Por Referencia, totalMultas Por Referencia)
+	lapsoDeDias <- dias_Transcurridos(año, mes, dia);
+	Mostrar "Hoy es: " + ConvertirATexto(año) + "/" + ConvertirATexto(mes) + "/"+ ConvertirATexto(dia)
+	Segun (codigo) Hacer
+		"FIC":
+			Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"FIC");
+			Si lapsoDeDias > 15 
+				acumMultas = acumMultas + 1
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 18 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 25
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dias del día de prestamo" 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"TEC":
+			Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"TEC");
+			
+			Si lapsoDeDias > 7 
+				acumMultas = acumMultas + 1
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 10 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 17
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"INF":
+			Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"INF");
+			
+			Si lapsoDeDias > 21 
+				acumMultas = acumMultas + 1
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 24 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 31
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+		"REF":
+			Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"REF");
+			
+			Si lapsoDeDias > 0 
+				acumMultas = acumMultas + 1
+				multa = 500 * lapsoDeDias
+				Si lapsoDeDias > 3 Entonces
+					multa = 800 * lapsoDeDias
+					Si lapsoDeDias > 7
+						multa = 1200 * lapsoDeDias
+					FinSi
+				FinSi
+			FinSi
+			Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+			calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
+	FinSegun
+	
+FinSubAlgoritmo
+
+SubAlgoritmo calcularMulta(Codigo, totalMultasEstudiantes Por Referencia, totalMultasDocentes Por Referencia, totalMultasRegulares Por Referencia, totalMultas Por Referencia, multa, ocupacion)
+	multaDefault = multa
+	multaEstudiante = (50/100)*multa
+	multaDocente = (70/100)*multa
+	
+	Segun (ocupacion) hacer
+		"Estudiante": 
+			mostrar("Tiene una multa de ," + ConvertirATexto(multaEstudiante))
+			totalMultasEstudiantes = totalMultasEstudiantes + multaEstudiante;
+		"Docente": mostrar("Tiene una multa de ," +  ConvertirATexto(multaDocente))
+			totalMultasDocentes = totalMultasDocentes + multaDocente;
+		"Médico":
+			mostrar("Tiene una multa de " + ConvertirATexto(multaDefault))
+			totalMultasRegulares = totalMultasRegulares + multaDefault;
+	FinSegún
+	totalMultas = totalMultasEstudiantes + totalMultasDocentes + totalMultasRegulares; 
 	
 FinSubAlgoritmo
 
 SubAlgoritmo generarComprobante
 	
 FinSubAlgoritmo
+
+SubAlgoritmo reporteEstadistico
+	
+FinSubAlgoritmo
+
+//Utilidad para obtener la diferencia de dias
+Funcion  dias <- dias_Transcurridos(año, mes, dia)
+	// dias acumulador por cada mes
+	enero<-31; febrero<-59; marzo<-90; abril<-120; mayo<-151; junio<-181; julio<-212; agosto<-243; septiembre<-273; octubre<-304; noviembre<-334; diciembre<-365;
+	
+	//Ingresar fecha inical
+	an_Inicial = Trunc(FechaActual()/10000)
+	mes_Inicial = Trunc(((FechaActual() - an_Inicial*10000)/100))
+	dia_Inicial = Trunc(FechaActual() - (an_Inicial*10000 + mes_Inicial*100))
+
+	//Ingresar fecha Final
+	
+	an_Final = año;
+	mes_Final = mes;
+	dia_Final=dia;
+	
+	//Días hasta 31 de diciembre del año inicial
+	
+	// Paso uno, verificar si el año es bisiesto
+	si (an_Inicial/4) = 0 entonces dias_AnInc<-366
+	Sino dias_AnInc<-365
+	FinSi
+	
+	si mes_Inicial=1 entonces dias_Hastafechainc <- dia_Inicial
+	Sino 
+		Si mes_Inicial=2 entonces dias_Hastafechainc <- enero + dia_Inicial
+		SiNo
+			Si mes_Inicial=3 entonces dias_Hastafechainc <- febrero + dia_Inicial
+			SiNo
+				Si mes_Inicial=4 entonces dias_Hastafechainc <- marzo + dia_Inicial
+				SiNo
+					Si mes_Inicial=5 entonces dias_Hastafechainc <- abril + dia_Inicial
+					SiNo
+						Si mes_Inicial=6 entonces dias_Hastafechainc <- mayo + dia_Inicial
+						SiNo
+							Si mes_Inicial=7 entonces dias_Hastafechainc <- junio + dia_Inicial
+							SiNo
+								Si mes_Inicial=8 entonces dias_Hastafechainc <- julio + dia_Inicial
+								SiNo
+									Si mes_Inicial=9 entonces dias_Hastafechainc <- agosto + dia_Inicial
+									SiNo
+										Si mes_Inicial=10 entonces dias_Hastafechainc <- septiembre + dia_Inicial
+										SiNo
+											Si mes_Inicial=11 entonces dias_Hastafechainc <- octubre + dia_Inicial
+											Sino 
+												Si mes_Inicial=12 entonces dias_Hastafechainc <- noviembre + dia_Inicial
+												FinSi
+											FinSi
+										FinSi
+									FinSi
+								FinSi
+							FinSi
+						FinSi
+					FinSi
+					
+				FinSi
+				
+			FinSi
+			
+		FinSi;
+	FinSi;
+	
+	
+	
+	Si (an_Inicial/4) = 0 entonces 
+		dias_Hastafechainc<-dias_Hastafechainc+1
+	Sino 
+		dias_Hastafechainc<-dias_Hastafechainc+0
+	FinSi
+	
+	dias_TotalesAnInc <- dias_AnInc - dias_Hastafechainc;
+	
+	total_Anfinal<- an_Final - (an_Inicial+1);
+	
+	si mes_Final=1 entonces dias_Hastamesfinal <- dia_Final
+	Sino 
+		Si mes_Final=2 entonces dias_Hastamesfinal <- enero + dia_Final
+		SiNo
+			Si mes_Final=3 entonces dias_Hastamesfinal <- febrero + dia_Final
+			SiNo
+				Si mes_Final=4 entonces dias_Hastamesfinal <- marzo + dia_Final
+				SiNo
+					Si mes_Final=5 entonces dias_Hastamesfinal <- abril + dia_Final
+					SiNo
+						Si mes_Final=6 entonces dias_Hastamesfinal <- mayo + dia_Final
+						SiNo
+							Si mes_Final=7 entonces dias_Hastamesfinal <- junio + dia_Final
+							SiNo
+								Si mes_Final=8 entonces dias_Hastamesfinal <- julio + dia_Final
+								SiNo
+									Si mes_Final=9 entonces dias_Hastamesfinal <- agosto + dia_Final
+									SiNo
+										Si mes_Final=10 entonces dias_Hastamesfinal <- septiembre + dia_Final
+										SiNo
+											Si mes_Final=11 entonces dias_Hastamesfinal <- octubre + dia_Final
+											Sino 
+												Si mes_Final=12 entonces dias_Hastamesfinal <- noviembre + dia_Final
+												FinSi
+											FinSi
+										FinSi
+									FinSi
+								FinSi
+							FinSi
+						FinSi
+					FinSi
+					
+				FinSi
+				
+			FinSi
+			
+		FinSi;
+	FinSi;
+	
+	dias_Totalesfinales <- (total_Anfinal*365)+dias_Hastamesfinal;
+	
+	ajuste_Diasbis <- Trunc(total_Anfinal / 4); // Para redondear el número de días bisiestos y poderlos sumar con un tipo de variable Entero
+	
+	dias_Totalesfinales <- dias_Totalesfinales + ajuste_Diasbis
+	
+	// Calculo final de días transcurridos
+	
+	//Esto son los dias que me interesan
+	dias = dias_TotalesAnInc + dias_Totalesfinales;
+Fin Funcion
+
 
 
 	
