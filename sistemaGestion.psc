@@ -15,13 +15,9 @@ Algoritmo sistemaGestion
 	
 	//Logica para reportes estadisticos
 	Definir diasDeatraso, total_stock_referencia, total_stock_infantil, total_stock_tecnico, total_stock_ficcion, totalLibros, acumCatRef, acumCatInf, acumCatTec, acumCatFic como entero;
-	
+
 	//--------------------------------------------------------------------------------------------
 	//Inicio del algoritmo 
-	acumCatFic = 0;
-	acumCatInf = 0;
-	acumCatRef = 0;
-	acumCatTec = 0;
 	diasDeatraso = 0;
 	TecnicoStock = -1
 	FiccionStock = -1;
@@ -30,42 +26,78 @@ Algoritmo sistemaGestion
 	codigoLibro = ""
 	codigodesocioC = ""
 	
-	//Relleno con valores para que no me jodan en la depuracion comentar en la exposición
-	TecnicoStock = 5;
-	FiccionStock = 5;
-	InfantilStock = 5;
-	RefStock = 5;
-	nombre = "Ivan";
-	apellido = "Viegas";
-	edad = 18;
-	ocupacion = "Médico";
-	correo = "ivanbordeira2015@hotmail.com";
-	codigodesocioC = "VIE_IV_0001";
+	//Relleno con valores para que no me jodan en la depuracion comentar en la exposición y desdecumentar en registrar socio
+//	TecnicoStock = 5;
+//	FiccionStock = 5;
+//	InfantilStock = 5;
+//	RefStock = 5;
+//	nombre = "Ivan";
+//	apellido = "Viegas";
+//	edad = 18;
+//	ocupacion = "Estudiante";
+//	correo = "ivanbordeira2015@hotmail.com";
+//	codigodesocioC = "VIE_IV_0001";
 	
 	
 	//Jugar con estos números para reportes estadisticos
+	contsocioC = 0;
 	totalMultasEstudiantes = 0;
 	totalMultasDocentes = 0;
 	totalMultasRegulares = 0;
 	socioSinAtraso = 0;
 	totalMultas = 0;
-	acumu_press = 0;
 	acumMultas = 0;
 	acumCatRef = 0;
 	acumCatTec = 0;
 	acumCatInf = 0;
 	acumCatFic = 0;
+	diasDeatrasoFic = 0;
+	diasDeatrasoInf = 0;
+	diasDeatrasoRef = 0;
+	diasDeatrasoTec = 0;
+	contMulta = 0
 	//Seria la fecha de mañana
 	año = 2025
-	mes = 6
-	dia = 25
+	mes = 7
+	dia = 11
+	
+//	//Datos de prueba para reportes estadisticos
+//	contsocioC = 100;
+//	//dinero recaudado discriminado por tipo, tecnicamente están mal porque hay porlomenos 100 socios, pero funcionan para probar.
+//	totalMultasEstudiantes = 4500;
+//	totalMultasDocentes = 9000;
+//	totalMultasRegulares = 800;
+//	//Total recaudado
+//	contMulta = 0
+//	socioSinAtraso = 50;
+//	//totalMultas es la cantidad de multas
+//	totalMultas = 0;
+//	//cantidad de multas por persona, dejar en 0
+//	acumMultas = 0;
+//	//acum cat son los libros prestados por categoria
+//	TecnicoStock = 50;
+//	FiccionStock = 50;
+//	InfantilStock = 50;
+//	RefStock = 50;
+//	acumCatRef = 10;
+//	acumCatTec = 25;
+//	acumCatInf = 40;
+//	acumCatFic = 50;
+//	diasDeatrasoFic = 35;
+//	diasDeatrasoInf = 47;
+//	diasDeatrasoRef = 15;
+//	diasDeatrasoTec = 7;
+	
+	
+	
 	// Dejarlo descomentado SOLO en úso real
 	//año = Trunc(FechaActual()/10000)
 	//mes = Trunc(((FechaActual() - año*10000)/100))
 	//dia = Trunc(FechaActual() - (año*10000 + mes*100))
-	
-	contsocioC = 0;
 	opcionP = -1
+	//acumulado de prestado por usuario ingresado, no tocar
+	acumu_press = 0;
+
 	
 	// aca iniciaria
 	
@@ -92,47 +124,111 @@ Algoritmo sistemaGestion
 		Leer RefStock;
 		total_stock_referencia <-- RefStock;
 	Fin Mientras
-	
+	Borrar Pantalla
 	Mientras opcionP <> 0 Hacer
-		Mostrar "Bienvenido al gestión de préstamos de libros,pulse 0: para salir,pulse 1: para registrar nuevos socios, 2: para prestar libros, 3: para devolver libros"
+		
+		Escribir " _____                                                                                     _____ "
+		Escribir "( ___ )                                                                                   ( ___ )"
+		Escribir " |   |~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|   | "
+		Escribir " |   |  _________  _______   ________  ___  ___  ________  ________  ________ _________    |   | "
+		Escribir " |   | |\___   ___\\  ___ \ |\   ____\|\  \|\  \|\   ____\|\   __  \|\  _____\\___   ___\  |   | "
+		Escribir " |   | \|___ \  \_\ \   __/|\ \  \___|\ \  \\\  \ \  \___|\ \  \|\  \ \  \__/\|___ \  \_|  |   | "
+		Escribir " |   |      \ \  \ \ \  \_|/_\ \  \    \ \   __  \ \_____  \ \  \\\  \ \   __\    \ \  \   |   | "
+		Escribir " |   |       \ \  \ \ \  \_|\ \ \  \____\ \  \ \  \|____|\  \ \  \\\  \ \  \_|     \ \  \  |   | "
+		Escribir " |   |        \ \__\ \ \_______\ \_______\ \__\ \__\____\_\  \ \_______\ \__\       \ \__\ |   | "
+		Escribir " |   |         \|__|  \|_______|\|_______|\|__|\|__|\_________\|_______|\|__|        \|__| |   | "
+		Escribir " |   |                                             \|_________|                            |   | "
+		Escribir " |___|~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~|___| "
+		Escribir "(_____)                                                                                   (_____)" 
+
+		Mostrar "Bienvenido al gestión de préstamos de libros de la biblioteca municipal Dr.Ricardo Rojas"
+		Mostrar "Introduzca una de las siguientes opciones:"
+		Mostrar "0: salir."
+		Mostrar "1: Registrar socios."
+		Mostrar "2: Prestar libros."
+		Mostrar "3: Para devolver libros."
+		Mostrar "4: Para generar reportes estadisticos."
 		Leer opcionP
+		Borrar Pantalla
 		Segun opcionP Hacer
 			0: 
 			1: 
-				NuevoSocioBiblioteca(nombre, apellido, codigodesocioC,ocupacion,correo,edad,contsocio);
+				acumMultas = 0;
+				NuevoSocioBiblioteca(nombre, apellido, codigodesocioC,ocupacion,correo,edad,contsocioC);
 				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionP);
 			2:
 				procesarPrestamo(codigodesocioC, isbnLibro,codigoLibro, fecha, acumMultas,acumu_press, FiccionStock, TecnicoStock, InfantilStock, RefStock, acumCatFic,acumCatRef,acumCatTec, acumCatInf);
 				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionP);
 			3:
-				ProcesarDevoluciones(socioSinAtraso,ocupacion,codigoLibro,dia,mes,año, acumMultas, FiccionStock, TecnicoStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas);
+				ProcesarDevoluciones(contMulta, socioSinAtraso,ocupacion,codigoLibro,dia,mes,año, acumMultas, FiccionStock, TecnicoStock, RefStock, totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas);
 				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionP);
 				Escribir "socios sin atrasos:" + ConvertirATexto(socioSinAtraso)
 			4:
-				reporteEstadistico
+				reporteEstadistico(contsocioC,TecnicoStock,FiccionStock,InfantilStock,RefStock,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, socioSinAtraso, totalMultas, contMulta, acumCatRef, acumCatTec, acumCatInf, acumCatFic, diasDeatrasoFic, diasDeatrasoInf, diasDeatrasoRef, diasDeatrasoTec)
 				generarComprobante(codigodesocioC, nombre, apellido, fecha, dia, mes, año, opcionP);
-			Otro:
+			De Otro Modo:
 				Escribir  "Opcion invalida"
 		Fin Segun
 	FinMientras
 	
 FinAlgoritmo
 
-SubAlgoritmo NuevoSocioBiblioteca(nombre Por Referencia,apellido Por Referencia, codigodesocioC Por Referencia, ocupacion Por Referencia, correo Por Referencia, edad Por Referencia, contsocio Por Referencia)
+SubAlgoritmo NuevoSocioBiblioteca(nombre Por Referencia,apellido Por Referencia, codigodesocioC Por Referencia, ocupacion Por Referencia, correo Por Referencia, edad Por Referencia, contsocioC Por Referencia)
 	//Descomentar para ingresar los valores
-//	mostrar("Ingrese nombre del socio")
-//	Leer nombre;
-//	mostrar("Ingrese apellido del socio")
-//	Leer apellido;
-//	mostrar ("Ingrese edad del socio")
-//	Leer edad;
-//	mostrar("Ingrese ocupacion del socio")
-//	Leer ocupacion
-//	mostrar("Ingrese correo del socio")
-//	Leer correo
+	Dimension numeros[27]
+	numeros[1] <- '0'
+	numeros[2] <- '1'
+	numeros[3] <- '2'
+	numeros[4] <- '3'
+	numeros[5] <- '4'
+	numeros[6] <- '5'
+	numeros[7] <- '6'
+	numeros[8] <- '7'
+	numeros[9] <- '8'
+	numeros[10] <- '9'
 	
 	
-	CodigoDeSocio(nombre,apellido, codigodesocioC,contsocio);
+	Repetir
+		esValido = Verdadero
+		
+		mostrar("Ingrese nombre del socio")
+		Leer nombre;
+		nombre = Mayusculas(nombre)
+		Para i <- 1 Hasta Longitud(nombre) Hacer
+			Para j <- 1 Hasta 10 Hacer
+				Si Subcadena(nombre,i,i) = numeros[j]
+					esValido = falso
+				FinSi
+			FinPara
+		FinPara
+		
+		mostrar("Ingrese apellido del socio")
+		Leer apellido;
+		apellido = Mayusculas(apellido)
+		Para i <- 1 Hasta Longitud(apellido) Hacer
+			Para j <- 1 Hasta 10 Hacer
+				Si Subcadena(apellido,i,i) = numeros[j]
+					esValido = falso
+				FinSi
+			FinPara
+		FinPara
+		Si Longitud(appelido) <= 3 y Longitud(nombre) <= 2
+			esvalido = !esvalido
+		FinSi
+		Si !esValido Entonces
+			Escribir "Nombre o apellido invalido, re-ingresar"
+			
+		FinSi
+	Hasta Que esValido 
+	mostrar ("Ingrese edad del socio")
+	Leer edad;
+	mostrar("Ingrese ocupacion del socio")
+	Leer ocupacion
+	mostrar("Ingrese correo del socio")
+	Leer correo
+	
+	
+	CodigoDeSocio(nombre,apellido, codigodesocioC,contsocioC);
 	VerificacionDeCorreo(correo)
 	mostrar("Datos del nuevo socio:")
     mostrar("Nombre: " + nombre)
@@ -174,7 +270,7 @@ SubAlgoritmo VerificacionDeCorreo(correo Por Referencia)
 	arroba = 0;
 	punto = 0;
 	tope = Longitud(correo);
-	Escribir tope
+	
 	Repetir
 		Para i = 1 Hasta tope Hacer
 			
@@ -233,6 +329,7 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 		abecedario[24] <- 'X'
 		abecedario[25] <- 'Y'
 		abecedario[26] <- 'Z'
+		abecedario[27] <- ' '
 		
 		Dimension numeros[10]
 		
@@ -314,53 +411,77 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 				
 				Segun codigoLibro
 					"INF": 
-						acumCatInf = acumCatInf + 1;
+						Si InfantilStock <> 0
+							acumCatInf = acumCatInf + 1;
+						SiNo
+							Escribir "No hay stock"
+							esValido = falso;
+						FinSi
 					"FIC":
-						acumCatFic = acumCatFic + 1;
+						Si FiccionStock <> 0
+							acumCatFic = acumCatFic + 1;
+						SiNo
+							Escribir "No hay stock"
+							esValido = falso;
+						FinSi
 					"REF":
-						acumCatRef = acumCatRef + 1;
+						Si RefStock <> 0
+							acumCatRef = acumCatRef + 1;
+						SiNo
+							Escribir "No hay stock"
+							esValido = falso;
+						FinSi
+						
 					"TEC":
-						acumCatTec = acumCatTec + 1;
+						Si TecnicoStock <> 0
+							acumCatTec = acumCatTec + 1;
+						SiNo
+							Escribir "No hay stock"
+							esValido = falso;
+						FinSi
+						
 				FinSegun
 				
 			Hasta Que codigoLibro = "INF" O codigoLibro = "FIC" O codigoLibro = "REF" O codigoLibro = "TEC"
 			
-			
-			Repetir
-				Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
-				Leer isbnLibro;
-				esNumerico = verdadero
-				contNum = 0;
-				Para i <- 1 hasta Longitud(isbnLibro) Hacer
-					Para j = 1 hasta 10 Hacer
-						Si (Subcadena(isbnLibro, i, i) = numeros[j] )
-							contNum = contNum + 1;
-						FinSi
+			Si (esValido)
+				Repetir
+					Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
+					Leer isbnLibro;
+					esNumerico = verdadero
+					contNum = 0;
+					Para i <- 1 hasta Longitud(isbnLibro) Hacer
+						Para j = 1 hasta 10 Hacer
+							Si (Subcadena(isbnLibro, i, i) = numeros[j] )
+								contNum = contNum + 1;
+							FinSi
+						FinPara
 					FinPara
-				FinPara
-				si contNum = Longitud(isbnLibro) entonces
-					esNumerico = Verdadero;
-				SiNo
-					Mostrar("ISBN inválido. Intente nuevamente")
-					esNumerico = Falso;
-				FinSi
-			Hasta Que esNumerico = Verdadero;
-			Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock, 1, codigoLibro);
-			//año, mes y dia deberian ser entradas, pero no vamos a esperar un día para ver si el programa funciona.
-			año = Trunc(FechaActual()/10000)
-			mes = Trunc(((FechaActual() - año*10000)/100))
-			dia = Trunc(FechaActual() - (año*10000 + mes*100))
-			Mostrar ("-------Préstamo registrado-------")
-			Mostrar ("Código de socio: " + codigodeSocioC)
-			Mostrar ("Código del libro solicitado: " + codigoLibro)
-			Mostrar ("ISBN del libro solicitado: " + isbnLibro);
-			mostrar ("Fecha del préstamo: " + ConvertirATexto(año) + "/" + ConvertirATexto(mes) + "/"+ ConvertirATexto(dia))
-			acumu_pres <-- acumu_pres + 1
+					si contNum = Longitud(isbnLibro) entonces
+						esNumerico = Verdadero;
+					SiNo
+						Mostrar("ISBN inválido. Intente nuevamente")
+						esNumerico = Falso;
+					FinSi
+				Hasta Que esNumerico = Verdadero;
+				Stock(FiccionStock, TecnicoStock, InfantilStock, RefStock, 1, codigoLibro);
+				//año, mes y dia deberian ser entradas, pero no vamos a esperar un día para ver si el programa funciona.
+				año = Trunc(FechaActual()/10000)
+				mes = Trunc(((FechaActual() - año*10000)/100))
+				dia = Trunc(FechaActual() - (año*10000 + mes*100))
+				Mostrar ("-------Préstamo registrado-------")
+				Mostrar ("Código de socio: " + codigodeSocioC)
+				Mostrar ("Código del libro solicitado: " + codigoLibro)
+				Mostrar ("ISBN del libro solicitado: " + isbnLibro);
+				mostrar ("Fecha del préstamo: " + ConvertirATexto(año) + "/" + ConvertirATexto(mes) + "/"+ ConvertirATexto(dia))
+				acumu_pres <-- acumu_pres + 1
+			FinSi
 		FinSi
+		
 	SiNo
 		Escribir "Debe registrarse primero"
 	FinSi
-
+	
 FinSubAlgoritmo
 
 
@@ -405,8 +526,8 @@ FinSi
 
 FinSubAlgoritmo
 
-SubAlgoritmo ProcesarDevoluciones(socioSinAtraso Por Referencia,ocupacion,codigo, dia,mes,año,acumMultas Por Referencia,FiccionStock Por Referencia,TecnicoStock Por Referencia,RefStock Por Referencia, totalMultasEstudiantes Por Referencia, totalMultasDocentes Por Referencia, totalMultasRegulares Por Referencia, totalMultas Por Referencia)
-	Si codigoLibro <> "" Entonces
+SubAlgoritmo ProcesarDevoluciones(contMulta Por Referencia,socioSinAtraso Por Referencia,ocupacion,codigo Por Referencia, dia,mes,año,acumMultas Por Referencia,FiccionStock Por Referencia,TecnicoStock Por Referencia,RefStock Por Referencia, totalMultasEstudiantes Por Referencia, totalMultasDocentes Por Referencia, totalMultasRegulares Por Referencia, totalMultas Por Referencia)
+	Si codigo <> "" Entonces
 		
 		
 		lapsoDeDias <- dias_Transcurridos(año, mes, dia);
@@ -426,7 +547,7 @@ SubAlgoritmo ProcesarDevoluciones(socioSinAtraso Por Referencia,ocupacion,codigo
 				SiNo
 					socioSinAtraso = socioSinAtraso + 1
 				FinSi
-				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dias del día de prestamo" 
+				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dia/s del día de prestamo" 
 				calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
 			"TEC":
 				Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"TEC");
@@ -443,7 +564,7 @@ SubAlgoritmo ProcesarDevoluciones(socioSinAtraso Por Referencia,ocupacion,codigo
 				SiNo
 					socioSinAtraso = socioSinAtraso + 1
 				FinSi
-				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dia/s del día de prestamo" 
 				calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
 			"INF":
 				Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"INF");
@@ -460,7 +581,7 @@ SubAlgoritmo ProcesarDevoluciones(socioSinAtraso Por Referencia,ocupacion,codigo
 				SiNo
 					socioSinAtraso = socioSinAtraso + 1
 				FinSi
-				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dia/s del día de prestamo" 
 				calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
 			"REF":
 				Stock(FiccionStock,TecnicoStock,InfantilStock, RefStock,2,"REF");
@@ -477,11 +598,13 @@ SubAlgoritmo ProcesarDevoluciones(socioSinAtraso Por Referencia,ocupacion,codigo
 				SiNo
 					socioSinAtraso = socioSinAtraso + 1
 				FinSi
-				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + "del día de prestamo" 
+				Escribir "Entrego el libro a " + ConvertirATexto(lapsoDeDias) + " dia/s del día de prestamo" 
 				calcularMulta(Codigo,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, totalMultas,multa, ocupacion)
 		FinSegun
+		contMulta = contMulta + acumMultas
+		codigo = ""
 	SiNo
-		Escribir "Debe ingresar un codigo de libro"
+		Escribir "Debe pedir un libro"
 	FinSi
 	
 	
@@ -494,11 +617,11 @@ SubAlgoritmo calcularMulta(Codigo, totalMultasEstudiantes Por Referencia, totalM
 	
 	Segun (ocupacion) hacer
 		"Estudiante": 
-			mostrar("Tiene una multa de ," + ConvertirATexto(multaEstudiante))
+			mostrar("Tiene una multa de " + ConvertirATexto(multaEstudiante))
 			totalMultasEstudiantes = totalMultasEstudiantes + multaEstudiante;
-		"Docente": mostrar("Tiene una multa de ," +  ConvertirATexto(multaDocente))
+		"Docente": mostrar("Tiene una multa de " +  ConvertirATexto(multaDocente))
 			totalMultasDocentes = totalMultasDocentes + multaDocente;
-		"Médico":
+		De Otro Modo:
 			mostrar("Tiene una multa de " + ConvertirATexto(multaDefault))
 			totalMultasRegulares = totalMultasRegulares + multaDefault;
 	FinSegún
@@ -591,7 +714,48 @@ SubAlgoritmo generarComprobante (codigodesocioC, nombre, apellido, fecha, dia, m
 	Escribir "Hora de la operación: " + horaC + ":" + minutoC + ":" + segundoC
 FinSubAlgoritmo
 
-SubAlgoritmo reporteEstadistico
+SubAlgoritmo reporteEstadistico(contsocioC,TecnicoStock,FiccionStock,InfantilStock,RefStock,totalMultasEstudiantes, totalMultasDocentes, totalMultasRegulares, socioSinAtraso, contMulta, contMulta, acumCatRef, acumCatTec, acumCatInf, acumCatFic, diasDeatrasoFic, diasDeatrasoInf, diasDeatrasoRef, diasDeatrasoTec)
+	
+	Si contsocioC > 0 Y socioSinAtraso > 0 Y acumCatRef > 0 Y acumCatTec > 0 Y acumCatInf > 0 Y acumCatFic > 0 Y diasDeatrasoFic > 0 Y diasDeatrasoInf > 0 Y diasDeatrasoRef > 0 Y diasDeatrasoTec > 0  Entonces
+		porcentage_TecnicoStock = (acumCatTec / TecnicoStock) * 100
+		porcentage_FiccionStock = (acumCatFic / FiccionStock) * 100
+		porcentage_InfantilStock = (acumCatInf / InfantilStock) * 100
+		porcentage_RefStock = (acumCatRef / RefStock) * 100
+		
+		Escribir"porcentage de libros prestados de tematica tecnica son; ", porcentage_TecnicoStock, "%"
+		Escribir "porcentage de libros prestados de tematica ficcion son; ",porcentage_FiccionStock, "%"
+		Escribir "porcentage de libros prestados de tematica infantil son; ",porcentage_InfantilStock, "%"
+		Escribir"porcentage de libros prestados de tematica de referencia son; ",porcentage_RefStock, "%"
+		Escribir "La cantidad de socios es; ", contsocioC
+		Promedio_dias_atraso_ficc = (diasDeatrasoFic / acumCatFic)
+		Promedio_dias_atraso_inf = (diasDeatrasoInf / acumCatInf)
+		Promedio_dias_atraso_ref = (diasDeatrasoRef / acumCatRef)
+		Promedio_dias_atraso_tec = (diasDeatrasoTec / acumCatTec)
+		Escribir "Promedio de los dias de atraso de la categoria ficcion son; ",Promedio_dias_atraso_ficc
+		Escribir "Promedio de los dias de atraso de la categoria infantil son; ",Promedio_dias_atraso_inf
+		Escribir "Promedio de los dias de atraso de la categoria referencia son; ",Promedio_dias_atraso_ref
+		Escribir "Promedio de los dias de atraso de la categoria tecnico son; ",Promedio_dias_atraso_tec
+		
+		Escribir "Recaudación por tipo de socio: "
+		Escribir "- Estudiantes: $", totalMultasEstudiantes
+		Escribir "- Docentes: $", totalMultasDocentes
+		Escribir "- Regulares: $", totalMultasRegulares
+		totalMultas = (totalMultasEstudiantes + totalMultasDocentes + totalMultasRegulares)
+		Escribir "Total recaudado: $", totalMultas
+		
+		Si socioSinAtraso > 0 Entonces
+			
+			SinAtrasos = (socioSinAtraso / contsocioC) * 100
+			
+			Escribir "Porcentaje de socios sin atrasos: ", SinAtrasos, "%"
+			
+		SiNo
+			Mostrar("No hay socios con atrasos")
+		FinSi
+		
+	SiNo
+		Escribir "No hat datos suficientes como para realizar una estadistica"
+	FinSi
 	
 FinSubAlgoritmo
 

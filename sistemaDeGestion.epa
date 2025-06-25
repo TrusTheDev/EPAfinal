@@ -604,17 +604,13 @@ tecnico_prestados, ficcion_prestados, infantil_prestados, referencia_prestados: 
 porcentage_cant_socio, porcentage_TecnicoStock, porcentage_FiccionStock, porcentage_TecnicoStock, porcentage_RefStock: real
 
 inicio
-//asignacion de los valores de libros prestados por categoria
-tecnico_prestados <-- acumCatTec
-ficcion_prestados <-- acumCatFic
-infantil_prestados <-- acumCatInf
-referencia_prestados <-- acumCatRef
+
 //porcentage de libros prestados por categoria
-porcentage_TecnicoStock <-- (tecnico_prestados / TecnicoStock) * 100
-porcentage_FiccionStock <-- (ficcion_prestados / FiccionStock) * 100
-porcentage_InfantilStock <-- (infantil_prestados / InfantilStock) * 100
-porcentage_RefStock <-- (referencia_prestados / RefStock) * 100
-mostrar("porcentage de libros prestados de tematica tecnica son; ", porcentage_TecnicoStock)
+porcentage_TecnicoStock = (acumCatTec / TecnicoStock) * 100
+porcentage_FiccionStock = (acumCatFic / FiccionStock) * 100
+porcentage_InfantilStock = (acumCatInf / InfantilStock) * 100
+porcentage_RefStock = (acumCatRef / RefStock) * 100
+mostrar("porcentage de libros prestados de tematica tecnica son; ",porcentage_TecnicoStock)
 mostrar("porcentage de libros prestados de tematica ficcion son; ",porcentage_FiccionStock)
 mostrar("porcentage de libros prestados de tematica infantil son; ",porcentage_InfantilStock)
 mostrar("porcentage de libros prestados de tematica de referencia son; ",porcentage_RefStock)
@@ -628,10 +624,10 @@ Promedio_dias_atraso_ficc <-- (diasDeatrasoFic / acumCatFic)
 Promedio_dias_atraso_inf <-- (diasDeatrasoInf / acumCatInf)
 Promedio_dias_atraso_ref <-- (diasDeatrasoRef / acumCatRef)
 Promedio_dias_atraso_tec <-- (diasDeatrasoTec / acumCatTec)
-mostrar("los dias de atraso de la categoria ficcion son; ",Promedio_dias_atraso_ficc)
-mostrar("los dias de atraso de la categoria infantil son; ",Promedio_dias_atraso_inf)
-mostrar("los dias de atraso de la categoria referencia son; ",Promedio_dias_atraso_ref)
-mostrar("los dias de atraso de la categoria tecnico son; ",Promedio_dias_atraso_tec)
+mostrar("Promedio de los dias de atraso de la categoria ficcion son; ",Promedio_dias_atraso_ficc,"%")
+mostrar("Promedio de los dias de atraso de la categoria infantil son; ",Promedio_dias_atraso_inf,"%")
+mostrar("Promedio de los dias de atraso de la categoria referencia son; ",Promedio_dias_atraso_ref,"%")
+mostrar("Promedio de los dias de atraso de la categoria tecnico son; ",Promedio_dias_atraso_tec, "%")
 
 // Recaudación discriminando por socio
 //Las variables totalMultas... deben estar inicializadas en el algoritmo principal
@@ -650,7 +646,7 @@ Si (totalSocios > 0) entonces
     SinAtrasos <-- (socioSinAtraso / totalSocios) * 100
     Mostrar("Porcentaje de socios sin atrasos: ", SinAtrasos, "%")
 Sino
-    Mostrar("No hay datos suficientes")
+    Mostrar("No hay socios registrados")
 FinSi
 
 Fin
