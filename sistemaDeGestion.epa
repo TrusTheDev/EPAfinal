@@ -274,8 +274,8 @@ Si (esValido) entonces
 
         Desde i <-- 1 hasta long(isbnLibro) hacer
             
-            Según (isbnLibro[i]) hacer
-                0..9: esNumerico = falso;
+            Según (ord(isbnLibro[i])) hacer
+                48..57: esNumerico = verdadero;
                 Sino: esNumerico = falso;
                 i = long(isbnLibro);
             FinSegún
