@@ -301,7 +301,7 @@ FinSubAlgoritmo
 SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLibro Por Referencia, fecha, acumMultas Por Referencia,acumu_press Por Referencia, FiccionStock Por Referencia, TecnicoStock Por Referencia, InfantilStock Por Referencia, RefStock Por Referencia,acumCatFic Por Referencia, acumCatRef Por Referencia,acumCatTec Por Referencia,acumCatInf Por Referencia)
 	Si codigodesocioC <> "" Entonces
 		codigodesocioC = Mayusculas(codigodesocioC)
-		Dimension abecedario[26]
+		Dimension abecedario[27]
 		
 		abecedario[1] <- 'A'
 		abecedario[2] <- 'B'
@@ -358,7 +358,7 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 			FinSi
 			
 			Para i<- 1 hasta 3 Hacer
-				Para j = 1 hasta 26 Hacer
+				Para j = 1 hasta 27 Hacer
 					Si(Subcadena(codigodesocioC, i,i) = abecedario[j])
 						contMayus = contMayus + 1;
 					FinSi
@@ -444,20 +444,21 @@ SubAlgoritmo ProcesarPrestamo (codigodesocioC, isbnLibro Por Referencia,codigoLi
 				
 			Hasta Que codigoLibro = "INF" O codigoLibro = "FIC" O codigoLibro = "REF" O codigoLibro = "TEC"
 			
+			
 			Si (esValido)
 				Repetir
 					Mostrar("Ingrese el ISBN del libro (sólo numeros): ")
 					Leer isbnLibro;
 					esNumerico = verdadero
 					contNum = 0;
-					Para i <- 1 hasta Longitud(isbnLibro) Hacer
+					Para i <- 1 hasta 12 Hacer
 						Para j = 1 hasta 10 Hacer
 							Si (Subcadena(isbnLibro, i, i) = numeros[j] )
 								contNum = contNum + 1;
 							FinSi
 						FinPara
 					FinPara
-					si contNum = Longitud(isbnLibro) entonces
+					si contNum = 12 entonces
 						esNumerico = Verdadero;
 					SiNo
 						Mostrar("ISBN inválido. Intente nuevamente")
